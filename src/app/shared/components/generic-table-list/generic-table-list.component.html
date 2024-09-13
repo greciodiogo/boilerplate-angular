@@ -1,0 +1,227 @@
+<div class="row">
+  <div class="col-md-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%">
+        <div
+          class="modal-content"
+          style="box-shadow: 0 0 0rem rgba(0, 0, 0, 0.5)"
+        >
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Filtro de Dados</h4>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-1 col-xs-2 col-sm-2"
+              >
+                <mat-label>Entrada</mat-label>
+                <mat-select
+                  name="perPage"
+                >
+                  <mat-option [value]="5">5</mat-option>
+                  <mat-option [value]="10">10</mat-option>
+                  <mat-option [value]="25">25</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-1 col-xs-2 col-sm-2"
+              >
+                <mat-label>Filtro</mat-label>
+                <mat-select
+                  name="type_filter"
+                >
+                  <mat-option value="" selected>Filtro</mat-option>
+                  <mat-option value="created_at">Data</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-3 col-xs-2 col-sm-2"
+              >
+                <mat-label>Pesquisar</mat-label>
+                <input
+                  matInput
+                  placeholder="Pesquisar..."
+                />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <mat-radio-group
+                  aria-label="Select an option"
+                >
+                  <mat-radio-button value="ASC"> Crescente</mat-radio-button
+                  ><br />
+                  <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <div class="form-group">
+                  <div class="example-button-row">
+                    <button
+                      type="button"
+                      mat-raised-button
+                      class="btn btn-info btn-flat"
+                      type="button"
+                      style="margin-top: 3px; padding: 4px 16px"
+                    >
+                      <i class="fa fa-search"></i> Filtrar
+                    </button>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%; margin-top: 0">
+        <div
+          class="modal-content"
+          style="box-shadow: 0 0 0rem rgba(0, 0, 0, 0.5)"
+        >
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">TABELA DE PEDIDO DE PRODUTOS</h4>
+            <div class="card-tools">
+              <button
+                class="btn btn-outline-primary btn-sm btn-flat"
+                type="button"
+              >
+                <i class="icon-refresh"></i> Recarregar Dados
+              </button>
+              <button
+                class="btn btn-primary btn-sm btn-flat"
+                type="button"
+                data-toggle="modal"
+                data-target="#modalprodutoCreateOrEdit"
+              >
+                <i class="icon-plus"></i> Registar Novo Pedido
+              </button>
+            </div>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- /.card-body -->
+            <div class="table-responsivee">
+              <app-loading [show]="false"></app-loading>
+              <table
+                class="
+                  table table-hover table-bordered table-stripedd
+                  text-center
+                  m-0
+                  exportAsXLSXCliente
+                "
+              >
+                <tbody>
+                  <tr class="table-header-blue"  >
+                    <th *ngFor="let field of fields" > {{field}} </th>
+                    <th style="width: 9%">Acção</th>
+                  </tr>
+                  <tr *ngFor="let item of data;index as i">
+                  <td *ngFor="let key of keys" > {{item[key]}} </td>
+        
+
+                    <!-- <td style="background: rgba(0, 0, 0, 0.1); width: 200px;">
+                      <span class="btn bg-danger btn-block btn-flat" >Registado</span>
+                      <span class="btn bg-success btn-block btn-flat" >Processado</span>
+                      <span class="btn bg-warning btn-block btn-flat" >Fechado</span>
+                    </td> -->
+                    <td>
+                      <div class="btn-group btn-block">
+                        <button
+                          type="button"
+                          class="btn btn-info btn-flat btn-sm btn-block"
+                          data-toggle="dropdown"
+                        >
+                          Opções
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-info btn-flat dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div
+                          class="dropdown-menu"
+                          role="menu"
+                          x-placement="bottom-start"
+                          style="
+                            position: absolute;
+                            will-change: transform;
+                            top: 0px;
+                            left: 0px;
+                            transform: translate3d(67px, 38px, 0px);
+                          "
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            class="dropdown-item btn-sm"
+                            data-toggle="tooltip"
+                            data-widget="chat-pane-toggle"
+                            title="Editar"
+                            data-toggle="modal"
+                            data-target="#modalprodutoCreateOrEdit"
+                          >
+                            <i class="fa fa-edit"></i> Editar
+                          </a>
+                          <a
+                            href="javascript:void(0)"
+                            class="dropdown-item btn-sm"
+                            title="Eliminar"
+                            data-toggle="modal"
+                            data-widget="chat-pane-toggle"
+                            data-target="#modalEliminarProduto"
+                            
+                            ><i class="fa fa-trash"></i> Eliminar</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row" style="width: 100%">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info">
+                  Mostrando 
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7">
+                <div class="pull-right">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    maxSize="6"
+                    nextLabel="Proximo"
+                    directionLinks="true"
+                    responsive="true"
+                  >
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+

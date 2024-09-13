@@ -1,0 +1,6 @@
+<tbody *ngIf="loading">
+    <tr *ngFor="let number of [].constructor(this.rows)">
+        <td *ngFor="let number of [].constructor(this.cols)">
+            <ngx-skeleton-loader animation="progress" [theme]="{height: '50px'}" *ngIf="loading"></ngx-skeleton-loader></td>
+    </tr>
+</tbody>

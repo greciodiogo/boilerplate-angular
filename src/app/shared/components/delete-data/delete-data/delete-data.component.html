@@ -1,0 +1,26 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="{{ modalName }}" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+          <div class="modal-header form-modal-header">
+            <h4 class="modal-title"><i class="fa fa-trash"></i> Eliminar Registo</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger alert-dismissible">
+                <h5><i class="icon fas fa-ban"></i> Atenção!</h5>
+                Tem certeza que desejas excluir o registo <span class="badge bg-primary" style="padding: 10px;font-size: 21px; font-weight: revert;">{{ data }}</span>
+             </div>
+          </div>
+          <!-- Transporte footer -->
+        <div class="modal-footer form-modal-header">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary mr-1 btn-sm" type="button" data-dismiss="modal" (click)="delete()" data-style="expand-left"><i class="fa fa-trash"></i> Excluir</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

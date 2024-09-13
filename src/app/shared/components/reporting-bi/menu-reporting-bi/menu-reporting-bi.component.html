@@ -1,0 +1,45 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalMenuReportingBI" data-backdrop="static">
+  <div class="{{ (is_modal? 'modal-dialog modal-xl' :'') }}" style="max-width: 1796px;">
+    <div class="{{ ( is_modal? 'modal-content modal-content-notboxshadow' :'') }}">
+      <div class="modal-header" *ngIf="is_modal">
+        <h4 class="modal-title">Menu Reporting & BI</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="{{ (is_modal? 'modal-body' :'') }}">
+        <div class="row">
+          <div class="col-md-5">
+            <h3 class="m-0" style="color: #7d8184">Categorias</h3>
+            <hr>
+            <app-menus (ChangedMenuEmitter)="MenuReporting($event)"></app-menus>
+          </div>
+          <div class="col-md-7">
+            <h3 class="m-0" style="color: #7d8184">{{ title }}</h3>
+            <hr>
+            <div class="row">
+              <div class="col-md-12" *ngFor="let item of itensMenu">
+
+                <ul class="products-list product-list-in-box">
+                  <li class="item">
+                    <div class="product-img">
+                      <i class="fa fa-line-chart icon-report"></i>
+                    </div>
+
+                    <div class="product-info">
+                      <a [routerLink]="item.url" class="product-title">{{item.name}} </a>
+                      <span class="product-description">{{ title }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

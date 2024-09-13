@@ -1,0 +1,35 @@
+<div bsModal #childModal="bs-modal" class="{{ (is_modal? 'modal fade' :'') }}"
+    tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" data-backdrop="static" id="{{name}}">
+    <div class="modal-dialog modal-lg" style="max-width: 1262px">
+        <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}"
+            [ngStyle]="(is_modal?'' :{'background':(is_modal?'#fff':'transparent'), 'border':'0'})">
+            <div class="modal-header" *ngIf="is_modal">
+                <h4 class="modal-title">
+                    <i class="fa fa-cloud-upload"></i> Upload Documento
+                </h4>
+                <button #closeModal class="close" type="reset" data-dismiss="modal">&times; </button>
+            </div>
+            <form [formGroup]="form" (submit)="onSubmit()">
+                <div class="modal-body">
+                  <app-loading [show]="this.loading"></app-loading>
+                  <app-button-file-upload [items]="items" (onChangeData)="changeFiles($event)"></app-button-file-upload>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    class="btn btn-default btn-sm mr-1"
+                    #closeModal  type="reset" data-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    class="btn btn-primary mr-1 btn-sm"
+                    type="submit"
+                    data-style="expand-left"
+                  >
+                    <i class="fa fa-save"></i> Submter
+                  </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<h1>
+    Network Status: <span [ngStyle]="{'color':connectionService.networkConnection=='ONLINE'?'green':'red'}">
+        {{ connectionService.networkConnection }}
+      </span><br>
+    Internet Status: <span [ngStyle]="{'color':connectionService.internetConnection=='ONLINE'?'green':'red'}">
+        {{ connectionService.internetConnection }}
+      </span>
+  </h1>
+  {{ connectionService.internetConnection }}

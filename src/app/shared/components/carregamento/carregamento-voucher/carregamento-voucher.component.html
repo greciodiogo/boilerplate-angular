@@ -1,0 +1,56 @@
+<div class="modal fade" id="modalCarregarVoucher" data-backdrop="static">
+  <div class="modal-dialog modal-lg " style="max-width: 1150px;">
+      <div class="modal-content">
+      <!-- Modal Header -->
+      <form [formGroup]="simpleForm" (submit)="onSubmit();">
+        <div class="modal-header">
+          <h4 class="modal-title">Carregar Voucher</h4>
+          <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;">
+          <app-loading [show]="rechargeService.loading"></app-loading>
+          <div class="row">
+
+              <div class="col-md-6">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="costumerContact">Número</label>
+                    <input class="form-control" required autofocus id="costumerContact" type="text" formControlName="costumerContact"
+                      placeholder="costumerContact" autocomplete="given-name"
+                      [ngClass]="{ 'is-invalid': submitted && f.costumerContact.errors, 'is-valid': f.costumerContact.touched && !f.costumerContact.errors }" />
+                    <div *ngIf="submitted && f['costumerContact'].errors" class="invalid-feedback">
+                      <div *ngIf="f['costumerContact'].errors.required">O campo costumerContact é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="cardPinNumber">Nº Serie</label>
+                <input class="form-control" required autofocus id="cardPinNumber" type="text" formControlName="cardPinNumber"
+                  placeholder="cardPinNumber" autocomplete="given-name"
+                  [ngClass]="{ 'is-invalid': submitted && f.cardPinNumber.errors, 'is-valid': f.cardPinNumber.touched && !f.cardPinNumber.errors }" />
+                <div *ngIf="submitted && f['cardPinNumber'].errors" class="invalid-feedback">
+                  <div *ngIf="f['cardPinNumber'].errors.required">O campo código iso é obrigatório</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleForm.pristine && !submitted"
+            (click)="onReset()">Limpar</button>
+          <button class="btn btn-success btn-sm mr-1" type="submit"
+            [disabled]="simpleForm.valid">Validar</button>
+          <button class="btn btn-primary mr-1 btn-sm" type="submit"
+            [disabled]="simpleForm.pristine || simpleForm.invalid" data-style="expand-left"><i
+              class="fa fa-save"></i>  Carregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

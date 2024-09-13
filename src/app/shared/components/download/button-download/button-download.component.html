@@ -1,0 +1,15 @@
+<button class="btn btn-primary" (click)="download()" [title]="anexo.filename">
+  <i class="fa fa-download"></i>
+  <span *ngIf="anexo.id == anexoDownload.id && download$ | async as download">
+    <i class="fa " [ngClass]="{'fa-spin fa-spinner': (download.progress != 100), 'fa-downloadd': (download.progress == 100)}"></i>
+  </span>
+  {{ title }}
+  <span *ngIf="anexo.id == anexoDownload.id && download$ | async as download" style="padding: 6px;
+  background: #fff;
+  color: #333;
+  margin-right: -6px;
+  margin-left: 6px;
+  border-radius: 15px;">
+    {{download.progress}}%
+  </span>
+</button>

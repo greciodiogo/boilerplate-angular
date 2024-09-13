@@ -1,0 +1,9 @@
+
+<select [formControlName]="name" class="form-control" required autofocus 
+[ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.tipo_identidade_id.touched && !f.name.errors }">
+    <option [value]="null">Tipo Identidade</option>
+    <option [value]="item.id" *ngFor="let item of items">{{ item.nome }} - {{ item.slug }}</option>
+</select>
+<div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+    <div *ngIf="f['name'].errors.required">O campo Tipo Identidade é obrigatório</div>
+</div>

@@ -1,0 +1,401 @@
+<div class="modal modal-info fade" id="modalHistoricoVendas" data-backdrop="static">
+  <div class="modal-dialog" style="max-width: 2716px;margin-top: 100px">
+    <div
+      class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Histórico de Vendas</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <hr>
+        <div class="row">
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Entrada</mat-label>
+            <mat-select
+              name="perPage"
+              [(ngModel)]="this.pagination.perPage">
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Data Inicio</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              [(ngModel)]="filter.startDate"
+              />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Data Fim</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="filter.endDate"
+              />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Filtro</mat-label>
+            <mat-select
+              name="type_filter"
+              [(ngModel)]="this.filter.typeFilter"
+              (selectionChange)="clearSearch()">
+              <mat-option value="" selected>Filtro</mat-option>
+              <mat-option value="minhas_vendas">Minhas Vendas</mat-option>
+              <mat-option value="Número da Factura">Nº da Factura</mat-option>
+              <mat-option value="Nome cliente">Nome Cliente</mat-option>
+              <mat-option value="Número de Contribuinte">Nº de Contribuinte</mat-option>
+              <mat-option value="Chave Serviço">Chave Serviço</mat-option>
+              <mat-option value="Número de conta">Nº de conta</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-2 col-xs-2 col-sm-2">
+            <mat-label>Pesquisar factura por
+              {{
+              this.filter.typeFilter == null ||
+              this.filter.typeFilter == "null"
+              ? "typeFilter"
+              : this.filter.typeFilter
+              }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="this.filter.search"
+              placeholder="Pesquisar factura por
+              {{
+              this.filter.typeFilter == null ||
+              this.filter.typeFilter == 'null'
+              ? 'typeFilter'
+              : this.filter.typeFilter.toLowerCase()
+              }}"
+              (keyup)="getPageFilterData($event)"
+              />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Ordenar por</mat-label>
+            <mat-select name="orderBy" [(ngModel)]="this.filter.orderBy">
+              <mat-option value="created_at">Data Venda</mat-option>
+              <mat-option value="id">ID</mat-option>
+              <mat-option value="nome">Nome do Cliente</mat-option>
+              <mat-option value="factura_sigla">Nº da Factura</mat-option>
+              <mat-option value="status">Estado</mat-option>
+              <mat-option value="pago">Saldado</mat-option>
+              <mat-option value="total">Total</mat-option>
+              <mat-option value="valor_aberto">Valor em Aberto</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            class="example-full-width col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Ordenar ASC ou DESC</mat-label>
+            <mat-select name="orderBy" [(ngModel)]="this.filter.typeOrderBy">
+              <mat-option value="ASC">Crescente</mat-option>
+              <mat-option value="DESC">Decrescente</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="col-md-1 col-xs-2 col-sm-2">
+            <div class="form-group">
+              <div class="example-button-row">
+                <button
+                  type="button"
+                  (click)="listarFacturacao()"
+                  mat-raised-button
+                  class="btn btn-info btn-lg filter-color" type="button"
+                  style="margin-top: 3px; padding: 4px 16px">
+                  <i class="fa fa-search"></i> Filtrar
+                </button>
+              </div>
+              <!-- /.input group -->
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!-- /.card-body -->
+        <div class="modal-header" style="border: 1px solid #c4c9d3; margin-bottom: 16px; padding: 21px 21px 5px;">
+        <h4 class="modal-title">TABELAS DE VENDAS</h4>
+        <div class="card-tools">
+
+          <button
+            class="btn btn-outline-primary btn-lg"type="button"
+            (click)="listarFacturacao()">
+            <i class="icon-refresh"></i> Recarregar Dados
+          </button>
+
+          <div class="form-group" style="float: right">
+            <div class="input-group">
+              <div class="btn-group">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-info btn-lg
+                    dropdown-toggle dropdown-icon"data-toggle="dropdown"
+                    aria-expanded="false"
+                    [disabled]="true">
+                    <i class="fa fa-download"></i> Exportação
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    x-placement="bottom-start"
+                    style="left: 40px">
+                    <a
+                      class="dropdown-item"
+                      href="javascript:void(0)"
+                      (click)="exportAsPDF()"><i class="fa fa-file-pdf-o"></i>
+                      PDF</a>
+                    <a
+                      class="dropdown-item"
+                      href="javascript:void(0)"
+                      (click)="exportAsXLSX()"><i class="fa fa-file-excel-o"></i>
+                      Excel</a>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-info btn-lg"
+                  (click)="imprimirPDF()"
+                  [disabled]="true">
+                  <i class="icon-printer"></i> Imprimir
+                </button>
+              </div>
+            </div>
+            <!-- /.input group 368px-->
+          </div>
+        </div>
+      </div>
+        <div style="height: 368px; overflow-y: auto;">
+          <app-loading [show]="facturaService.loading"></app-loading>
+          <table
+            class="table table-bordered
+            text-center
+            table-striped table-hover
+            text-center
+            m-0">
+            <thead>
+              <tr>
+                <th class="table-header" width="20">#</th>
+
+                <th class="table-header" width="350">Cliente</th>
+                <th class="table-header" width="180">Nº de Identificação</th>
+                <th class="table-header" width="150">ID Factura</th>
+                <th class="table-header" width="150">Nº da Factura</th>
+                <th class="table-header" width="150">Estado</th>
+                <th class="table-header" width="150">Saldado ?</th>
+                <th class="table-header" width="160">Total</th>
+                <th class="table-header" width="160">Total s/IVA</th>
+                <th class="table-header" width="160">V. Imposto</th>
+                <th class="table-header" width="300">Operador</th>
+                <th class="table-header" width="300">Loja</th>
+
+                <th class="table-header" width="180">Data Emissão</th>
+                <!--<th>Data Facturação</th>-->
+                <th class="table-header" style="width: 160px">Acção</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let fact of facturas
+                | paginate
+                : {
+                itemsPerPage: this.pagination.perPage,
+                currentPage: this.pagination.page,
+                id: 'listHistoricoVendas',
+                totalItems: this.pagination.total
+                };
+                index as i">
+                <td>{{ i + 1 }}</td>
+
+                <td>{{ fact?.cliente?.nome }}</td>
+                <td>{{ fact?.cliente?.identidade?.numero_identidade }}</td>
+                <td>{{ fact.id }}</td>
+                <td style="background: rgba(0, 0, 0, 0.1)">
+                  {{ fact.factura_sigla }}
+                </td>
+
+                <td>
+                  <span
+                    class="btn bg-danger btn-block"*ngIf="fact?.status == 'A'">Anulado</span>
+                  <span
+                    class="btn bg-info btn-block"*ngIf="fact?.status == 'N'">Normal</span>
+                </td>
+
+                <td>
+                  <span *ngIf="fact?.serie?.documento?.sigla == 'NC'">
+                    <span class="btn bg-success btn-block">Saldado</span></span>
+                  <span *ngIf="fact?.serie?.documento?.sigla != 'NC'">
+                    <span
+                      class="btn bg-warning btn-block"*ngIf="fact?.pago == 0">Não
+                      Saldado</span>
+                    <span
+                      class="btn bg-success btn-block"*ngIf="fact?.pago == 1">Saldado</span>
+                  </span>
+                </td>
+                <td style="background: #c3f0f7">
+                  {{ configService.numberFormat(fact.total) }}
+                  {{ fact.moeda_iso }}
+                </td>
+                <td style="background: #c3f0f7">
+                  {{ configService.numberFormat(fact.subtotal) }}
+                  {{ fact.moeda_iso }}
+                </td>
+                <td style="background: #c3f0f7">
+                  {{ configService.numberFormat(fact.totalImposto) }}
+                  {{ fact.moeda_iso }}
+                </td>
+
+                <td>{{ fact?.user?.name }}</td>
+                <td>{{ fact?.user?.loja?.nome }}</td>
+
+                <td>
+                  {{
+                  (fact?.created_at == null
+                  ? fact?.status_date
+                  : fact?.created_at
+                  ) | date: "dd-MM-yyyy H:mm:ss"
+                  }}
+                </td>
+                <!--<td style="background: rgba(0,0,0,.1);">{{ fact.created_at | date: 'dd-MM-yyyy' }} </td>-->
+                <td>
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-info btn-sm"
+                      data-toggle="dropdown">
+                      Opções
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-info dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false">
+                      <span class="caret"></span>
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      role="menu"
+                      x-placement="bottom-start"
+                      style="position: absolute;
+                      will-change: transform;
+                      top: 0px;
+                      left: -58px;
+                      transform: translate3d(67px, 38px, 0px);">
+
+
+
+                      <!--<a href="javascript:void(0)" class="dropdown-item btn-sm" title="Visualizar detalhes da factura"
+                                (click)="imprimirFactura(fact.id)"><i class="fa fa-clone"></i> Visualizar</a>
+                              <li class="divider"></li>-->
+                      <a
+                        href="javascript:void(0)"
+                        class="dropdown-item btn-sm"
+                        title="Imprimir"
+                        (click)="this.a4FacturaService.imprimirFacturaA4(fact.id)"><i
+                          class="fa fa-print"></i> Imprimir A4</a>
+                      <a
+                        *ngIf="fact.serie.documento.sigla == 'FR'"
+                        href="javascript:void(0)"
+                        class="dropdown-item btn-sm"
+                        title="Imprimir"
+                        (click)="imprimirTicket(fact.id)"><i class="fa
+                          fa-print"></i> Imprimir Ticket</a>
+                      <a
+                        href="javascript:void(0)"
+                        class="dropdown-item btn-sm"
+                        title="Download"
+                        (click)="this.a4FacturaService.imprimirFacturaA4(
+                        fact.id,
+                        'download'
+                        )"><i class="fa fa-download"></i> Download</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="facturas.length === 0">
+                <td
+                  colspan="18"
+                  style="font-size: 25px; padding: 28px; font-weight: 500">
+                  {{ notFound }}
+                </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th width="20">#</th>
+
+                <th width="350">Cliente</th>
+                <th width="180">Nº de Identificação</th>
+                <th width="150">ID Factura</th>
+                <th width="150">Nº da Factura</th>
+                <th width="150">Estado</th>
+                <th width="150">Saldado ?</th>
+                <th width="160">Total</th>
+                <th width="160">Total s/IVA</th>
+                <th width="160">V. Imposto</th>
+                <th width="300">Operador</th>
+                <th width="300">Loja</th>
+
+                <th width="180">Data Emissão</th>
+                <!--<th>Data Facturação</th>-->
+                <th style="width: 160px">Acção</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row" style="width: 100%">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info">
+              Mostrando de {{ this.pagination.page }} a
+              {{ this.pagination.perPage }} de
+              {{ configService.numberFormat(this.pagination.total) }}
+              registo{{ this.pagination.total > 1 ? "s" : "" }}
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+            <div class="pull-right">
+              <pagination-controls
+                (pageChange)="getPageFilterData($event)"
+                previousLabel="Anterior"
+                maxSize="6"
+                nextLabel="Próximo"
+                directionLinks="true"
+                responsive="true"
+                id="listHistoricoVendas"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

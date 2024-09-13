@@ -1,0 +1,14 @@
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+    <p>
+      <span [ngStyle]="{'font-size.px':titleFontSize, 'font-weight': 'bold'}">{{
+        title }}</span>
+    </p>
+    <span [ngStyle]="{'font-size.px':subTitleFontSize}">{{ subTitle }}</span>
+  </div>
+</ng-template>
+
+<ngx-loading [show]="show" [template]="customLoadingTemplate"
+  [config]="{animationType: animationType=='circle'?
+  animationTypestionTypes.circle :'', secondaryColour: secondaryColour}">
+</ngx-loading>

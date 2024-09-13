@@ -1,0 +1,49 @@
+
+ 
+    <div class="row mt-3 ml-3"> 
+      <div class="{{ (configs.inputDireccao || configs.inputCliente)? 'col-md-2':'col-md-12' }}">
+        <fieldset class="fieldset-border">
+            <legend class="fieldset-border"><strong><i class="fa fa-envelope"></i> Canal</strong> </legend>  
+              <section class="example-section mt-3 mb-3">
+                <mat-checkbox class="example-margin mr-2" value="sms" [checked]="notification.canalSms" (change)="selectEventSms($event)"><i class="fa fa-phone"></i>  SMS </mat-checkbox><br>
+                <mat-checkbox class="example-margin" value="email" [checked]="notification.canalEmail" (change)="selectEventEmail($event)"><i class="fa fa-envelope"></i> EMAIL </mat-checkbox>
+              </section> 
+        </fieldset> 
+      </div>
+      
+      <div class="col-md-10" *ngIf="(configs.inputDireccao || configs.inputCliente)">  
+          <fieldset class="fieldset-border">
+            <legend class="fieldset-border"><strong><i class="fa fa-users"></i> Enviar Para</strong></legend>   
+            <section class="example-section">
+                <div class="row">
+                  <div class="col-md-3 mb-2" *ngIf="configs.inputDireccao">
+                     <div class="row">
+                        <div class="col-md-12">
+                          <mat-checkbox class="example-margin mt-2" value="DIRECCAO" checked="" (change)="checkedDireccao($event)"><i class="fa fa-bank"></i>  Direcção </mat-checkbox>
+                         </div>
+                         <div class="col-md-12">
+                            <select class="form-control" name="DirecaoId" [(ngModel)]="this.notification.direcaoId" [disabled]="!this.notification.isCheckedDireccao">
+                              <option [value]="null">Direccção</option>
+                              <option value="T">Todas</option>
+                              <option *ngFor="let dir of direccoes" [value]="dir.id"> {{dir.designacao}}</option>
+                            </select>
+                         </div> 
+                      </div> 
+                  </div>
+                  <div class="col-md-9" style="margin-bottom: 10px;"  *ngIf="configs.inputCliente">
+                    <div class="row">
+                      <div class="col-md-12 mr-4">
+                        <mat-checkbox  checked="" class="example-margin mt-2" value="CLIENTE" (change)="checkedCliente($event)" 
+                        ><i class="fa fa-users"></i> Cliente</mat-checkbox>
+                      </div> 
+                     <div class="col-md-12">
+                       <input class="form-control" placeholder="Pesquisar aqui cliente que deseja notificar." [disabled]="!this.notification.isCheckedCliente">
+                     </div>
+                    </div> 
+                  </div>
+                </div>
+            </section>
+          </fieldset> 
+      </div> 
+      </div>
+  

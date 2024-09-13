@@ -1,0 +1,44 @@
+
+
+<div class="ng-autocomplete">
+    <input type="hidden"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+
+    class="form-control" />
+    <ng-autocomplete  [placeholder]="placeholder" class="form-controll"
+        [(ngModel)]="value"
+        [data]="clients"
+        searchKeyword="nome"
+        (selected)="selectEvent($event)"
+        (inputCleared)="inputCleared()"
+        (inputChanged)='onChangeSearch($event)'
+        (inputFocused)='onFocused($event)'
+        [itemTemplate]="itemTemplate"
+        notFoundText="Nenhum Resultado Encontrado"
+        [isLoading]="loading" debounceTime="2000" minQueryLength="2"
+
+        historyIdentifier="countriesTemplateList"
+        [historyHeading]="historyHeading"
+        [historyListMaxNumber]="0"
+        [itemTemplate]="itemTemplateStatic"
+
+        [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplateStatic let-item>
+        <a innerHTML="{{item.nome}} (Nº {{item?.identidade?.numero_identidade}})"></a>
+      </ng-template>
+
+    <ng-template #itemTemplate let-item>
+        <a innerHTML="{{item.nome}} (Nº {{item?.identidade?.numero_identidade}})"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+    </ng-template>
+</div>
+

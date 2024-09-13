@@ -1,0 +1,80 @@
+
+
+
+
+<form novalidate [attr.formGroup]="formImport" class="modal-content" style="box-shadow: 0 0 0rem rgb(0 0 0 / 50%);padding: 5px 9px  0px 9px;background: #eceff19c;border-radius: 4px;">
+  <div class="row">
+
+    <div class="col-md-{{ this.Config.requerExpirationDate?'3':'5' }} col-xs-12 col-sm-12" *ngIf="this.Config?.requerTypeAnexo">
+      <div class="form-group has-warning">
+        <label style="color: #f44336" class="mr-3">*</label>
+        <label class="col-form-label">{{ Config.labelItem }}</label>
+        <div class="input-group mb-6">
+          <select
+            formControlName="tipoAnexo"
+            class="form-control"
+            required
+            autofocus
+            (change)="onChangeTipoAnexo($event)" style="height: calc(2.25rem + 12.2px);">
+            <option selected [value]="items[0]?.id" *ngIf="items?.length==1" >{{ items[0]?.nome }}</option>
+            <option selected [value]="null" *ngIf="items?.length > 1">{{ Config?.labelItem }}</option>
+            <ng-container *ngIf="items?.length > 1">
+              <option
+                *ngFor="let item of items"
+                [value]="item.id">
+                {{ item.nome }}
+              </option>
+           </ng-container>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-3 col-xs-12 col-sm-12" *ngIf="this.Config.requerExpirationDate">
+      <div class="form-group has-warning">
+        <label class="col-form-label">{{ Config.labelDate }}</label>
+        <input
+          class="form-control"
+          required
+          min="0"
+          autofocus
+          id="data_validade"
+          type="date"
+          formControlName="data_validade"
+          autocomplete="given-name" (change)="onChangeDataValidade($event)"
+          style="height: calc(2.25rem + 12.2px);"
+          />
+      </div>
+    </div>
+
+    <div class="col-md-{{ this.Config.requerExpirationDate?'6':'7' }} col-xs-12 col-sm-12">
+      <label style="color: #f44336" class="mr-3">*</label>
+      <label class="col-form-label">{{ Config.labelFile }}</label>
+      <div class="k-widget k-upload">
+        <div class="k-dropzone">
+          <div class="k-button k-upload-button" role="button">
+            <input autocomplete="off" name="files" type="file"
+            formControlName="importFile"
+            id="importFile"
+            (change)="onFileChange($event.target.files)">
+              <span>Select files...</span>
+            </div>
+            <div class="k-upload-status k-upload-status-total ng-star-inserted" *ngIf="isCompleted">
+              <span class="k-icon k-i-upload"></span> Uploading...
+            </div>
+            <span>{{ fileToUpload?.name }}</span>
+            <div class="k-dropzone-hint" *ngIf="!fileToUpload?.name">Solte os arquivos aqui para enviar</div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+
+    <div class="has-warning" style="font-size: 100%; color: #dc3545; padding: 3px 10px; margin-top: -11px;" *ngIf="this.textMsg">
+      {{ textMsg }}
+    </div>
+    <mat-progress-bar mode="indeterminate" *ngIf="isCompleted"></mat-progress-bar>
+
+  </div>
+</form>

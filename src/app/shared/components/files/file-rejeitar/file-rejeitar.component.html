@@ -1,0 +1,79 @@
+<!-- The Modal -->
+<div class="modal modal-info modal fade in" id="rejeitarFileModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg " style="max-width: 900px;">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"><i class="fa fa-file nav-icon"></i> Rejeitar Ficheiro </h4>
+          <button #closeModal  type="button" class="close" data-dismiss="modal" (click)="onReset()">&times;</button>
+        </div>
+        <form [formGroup]="simpleForm" (submit)="rejeitarDocumento();">
+          <!-- Modal body -->
+          <div class="modal-body">
+  
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group has-warning">
+                      <label style="color: #f44336" class="mr-2">*</label>
+                      <label class="col-form-label" for="anexo_motivo_id">
+                        Motivo</label
+                      >
+                      <div class="input-group mb-3">
+                        <select
+                          formControlName="anexo_motivo_id"
+                          class="form-control"
+      
+                          autofocus
+                          [ngClass]="{
+                            'is-invalid': submitted && f.anexo_motivo_id.errors,
+                            'is-valid':
+                              f.anexo_motivo_id.touched &&
+                              !f.anexo_motivo_id.errors
+                          }"
+      
+                        >
+                          <option [value]="null">Selecione o motivo</option>
+                          <option
+                            [value]="motivo.id"
+                            *ngFor="let motivo of motivos"
+                          >
+                            {{ motivo.nome }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="submitted && f['anexo_motivo_id'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['anexo_motivo_id'].errors.required">
+                            O campo Motivo é obrigatório
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group has-warning">
+                      <label class="col-form-label">Observação</label>
+                      <textarea formControlName="description" placeholder="Escreve aqui o motivo da rejeição do documento" class="form-control"
+                        autofocus autocomplete="given-name" [ngClass]="{ 'is-invalid': submitted && f.description.errors, 'is-valid': f.description.touched && !f.description.errors }" ></textarea>
+                      <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                        <div *ngIf="f['description'].errors.required">O campo Observação é obrigatório</div>
+                      </div>
+                    </div>
+                  </div>  
+            </div>
+          </div>
+  
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleForm.pristine && !submitted"
+              (click)="onReset()">Limpar</button>
+            <!--<button class="btn btn-success btn-sm mr-1" type="submit" [disabled]="simpleForm.valid">Validar</button>-->
+            <button class="btn btn-primary mr-1 btn-sm" type="submit" 
+              [disabled]="simpleForm.pristine || simpleForm.invalid" data-style="expand-left"><i class="fa fa-save"></i>
+             Rejeitar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,142 @@
+<div class="table-responsivee">
+  <app-loading [show]="loading"></app-loading> 
+  <table
+    class="
+      table table-hover table-bordered table-stripedd
+      text-center
+      m-0
+      exportAsXLSXCliente
+    "
+  >
+    <tbody>
+      <tr class="table-header-blue">
+        <th>#</th>
+        <th *ngFor="let map of columnMaps">{{ map.header }}</th>
+        <th style="width: 9%">Acção</th>
+        <!-- <th style="width: 9%">Acção</th> -->
+      </tr>
+      
+      <tr *ngFor="let record of data | paginate: { itemsPerPage:
+        this.pagination.perPage, currentPage: this.pagination.page,
+        totalItems: this.pagination.total }; index
+        as i">
+        <td> {{i+1}} </td>
+        <td
+          *ngFor="let map of columnMaps"
+          [id]="map.header"
+          [appStyleCell]="record[map.primaryKey]"
+          [key]="map.primaryKey"
+        >
+          <span *ngIf="!map.isDate" [ngClass]="map.class && map.class" >{{ getState(getKeyObject(record[map.primaryKey], map)) }}</span>
+          <span *ngIf="map.isDate">{{ getKeyObject(record[map.primaryKey], map) | date: "dd-MM-yyyy" }}</span>
+        </td>
+        <td>
+          <div class="btn-group btn-block">
+            <button
+              type="button"
+              class="btn btn-info btn-flat btn-sm btn-block"
+              data-toggle="dropdown"
+            >
+              Opções
+            </button>
+            <button
+              type="button"
+              class="btn btn-info btn-flat dropdown-toggle"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div
+              class="dropdown-menu"
+              role="menu"
+              x-placement="bottom-start"
+              style="
+                position: absolute;
+                will-change: transform;
+                top: 0px;
+                left: 0px;
+                transform: translate3d(67px, 38px, 0px);
+              "
+            >
+              <a
+                href="javascript:void(0)"
+                class="dropdown-item btn-sm"
+                data-toggle="tooltip"
+                data-widget="chat-pane-toggle"
+                title="Editar"
+                data-toggle="modal"
+              >
+                <i class="fa fa-edit"></i> Editar
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="dropdown-item btn-sm"
+                title="Eliminar"
+                data-toggle="modal"
+                data-widget="chat-pane-toggle"
+                ><i class="fa fa-trash"></i> Eliminar</a
+              >
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <td>
+  <div class="btn-group btn-block">
+    <button
+      type="button"
+      class="btn btn-info btn-flat btn-sm btn-block"
+      data-toggle="dropdown"
+    >
+      Opções
+    </button>
+    <button
+      type="button"
+      class="btn btn-info btn-flat dropdown-toggle"
+      data-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div
+      class="dropdown-menu"
+      role="menu"
+      x-placement="bottom-start"
+      style="
+        position: absolute;
+        will-change: transform;
+        top: 0px;
+        left: 0px;
+        transform: translate3d(67px, 38px, 0px);
+      "
+    >
+      <a
+        href="javascript:void(0)"
+        class="dropdown-item btn-sm"
+        data-toggle="tooltip"
+        data-widget="chat-pane-toggle"
+        title="Editar"
+        data-toggle="modal"
+        data-target="#modalprodutoCreateOrEdit"
+      >
+        <i class="fa fa-edit"></i> Editar
+      </a>
+      <a
+        href="javascript:void(0)"
+        class="dropdown-item btn-sm"
+        title="Eliminar"
+        data-toggle="modal"
+        data-widget="chat-pane-toggle"
+        data-target="#modalEliminarProduto"
+        
+        ><i class="fa fa-trash"></i> Eliminar</a
+      >
+    </div>
+  </div>
+</td> -->

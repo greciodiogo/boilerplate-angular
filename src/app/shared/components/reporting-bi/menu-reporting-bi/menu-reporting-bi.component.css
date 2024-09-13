@@ -1,0 +1,28 @@
+.icon-report{
+    margin-right: 15px;
+    font-size: 50px;
+    color: #7d8184;
+}
+
+.btn-report{
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 40px 0 180px 0;
+    margin: 10px;
+}
+
+.btn-app{
+    color: #d2d2d2;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.products-list>.item{
+    border-radius: .25rem;
+    padding: 15px;
+    background: #fff;
+    margin: 10px 0;
+    border: 1px solid #cecece;
+}

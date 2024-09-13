@@ -1,0 +1,7 @@
+<div class="info-box" [style.border-left]="'5px solid '+boxColor"> 
+    <app-loading [show]="loading" animationType="circle" title="Estamos a processar os dados" subTitle="" titleFontSize="18" subTitleFontSize="13"></app-loading>
+    <div class="info-box-content">
+        <span class="info-box-text"><h5>{{ boxText }}</h5></span>
+        <span class="info-box-number"> {{ boxNumber }} <small>%</small></span>
+    </div> 
+</div>

@@ -1,0 +1,18 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-dark btn-lg" data-toggle="dropdown" title="Ocultar Colunas da tabela"><i class="fa fa-bars"></i> Colunas</button>
+  <button type="button" class="btn btn-dark dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+      <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu"  style="overflow-y: auto;height: 405px; width: 233px;left: -57px;" id="option1">
+    <!-- <li class="dropdown-item" (click)="onClickHandlerCheckbox(4)">sdasdads</li> -->
+      <li class="dropdown-item" *ngFor="let c of columns" (click)="onClickHandlerCheckbox(c)">
+          <div>
+            <input type="checkbox"class="checkboxColumn"  [checked]="c?.checked" id="checkboxPrimary{{ c?.index }}">
+            <!-- <input  type="checkbox" [data-input]="c?.index" class="checkboxColumn" (click)="onClickHandlerCheckboxShow(c)" id="checkboxPrimary{{ c?.index }}"> -->
+            <label  for="checkboxPrimary{{ c?.index }}" style="padding: 0;
+            margin: 4px 0 0 9px;
+            position: absolute;">{{ c?.nameColumn }}</label>
+           </div>
+        </li>
+  </ul>
+</div>
