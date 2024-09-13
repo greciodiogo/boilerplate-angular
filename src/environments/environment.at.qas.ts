@@ -2,9 +2,9 @@ import { Servers } from './servers';
 
 export const environment = {
   production: false,
-  host: Servers.AtQas.host,
-  port:Servers.AtQas.port,
-  app_url: `${Servers.AtQas.protocol}://${Servers.AtQas.host}:${Servers.AtQas.port}/${Servers.AtQas.prefix}/`,
-  app:  Servers.AtQas.app_name,
+  host: Servers.ServQas.host,
+  port:Servers.ServQas.port,
+  app_url: `${Servers.ServQas.protocol}://${Servers.ServQas.host}:${Servers.ServQas.port}/${Servers.ServQas.prefix}/`,
+  app:  Servers.ServQas.app_name,
   type:'TEST'
 };

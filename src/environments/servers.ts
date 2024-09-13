@@ -25,8 +25,8 @@ export class Server {
 
 export const Servers = { 
   // Ambiente produção do Cliente Angola Telecom
-  AtProd: new Server(3300, '172.31.6.12','at'),
-  AtQas: new Server(3000, '172.31.0.10','at'),
+  ServProd: new Server(3300, '172.31.6.12','at'),
+  ServQas: new Server(3000, '172.31.0.10','at'),
   
   //Ambiente de DEV & Teste
   Dev: new Server(3381, 'localhost'),
