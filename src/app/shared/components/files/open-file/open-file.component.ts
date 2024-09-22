@@ -1,8 +1,4 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { AnexosService } from '@app/resources/Modules/09Anexos/services/anexos.service';
-import { TransacaobancariaService } from '@app/resources/Modules/11Financas/services/transacaobancaria.service';
-import { AdiantamentoSolicitacaoService } from '@app/resources/Modules/01CRM/services/adiantamento-solicitacao.service';
-import { DepositocaixasService } from '@app/resources/Modules/03Operacoes/02Caixas/services/depositocaixas.service';
 import { FormService } from '@app/shared/services/form.service';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
@@ -29,10 +25,6 @@ export class OpenFileComponent implements OnInit {
   public motivo;
 
   constructor(
-    public anexosService: AnexosService,
-    public depositocaixasService: DepositocaixasService,
-    public adiantamentoSolicitacaoService: AdiantamentoSolicitacaoService,
-    public transacaobancariaService: TransacaobancariaService,
     public formService: FormService
   ) { }
 
@@ -47,21 +39,7 @@ export class OpenFileComponent implements OnInit {
     $('#myModalOpenApp').modal('show');
   }
 
-  public readAnexoPreview(filename, formate, estado,motivo={}) {
-    console.log(motivo)
-    this.estado = estado
-    this.motivo = motivo;
-    this.anexosService.loading = true;
-    this.anexosService.anexoPreview(filename).subscribe(
-      (data) => {
-        this.openApp(formate, data)
-        this.anexosService.loading = false;
-      },
-      (error) => {
-        this.anexosService.loading = false;
-      }
-    );
-  }
+  public readAnexoPreview(filename, formate, estado,motivo={}) {}
 
   public aprovarTypeDocument(tipoMovimento, movimentoId, transacaoId ,lojaId) {
     this.tipoOperacao.tipoMovimento = tipoMovimento;
@@ -90,24 +68,7 @@ export class OpenFileComponent implements OnInit {
       cancelButtonText: 'Não, Cancelar!',
       reverseButtons: true
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.adiantamentoSolicitacaoService.Aprovarsolicitacao(solicitacaoId, transacaoId).subscribe(
-          (data) => {
-            this.closeModal.nativeElement.click();
-            this.loadList.emit(Object(data).data);
-          },
-          (error) => {
-          }
-        );
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        this.swalWithBootstrapButtons.fire(
-          'Operação Cancelada',
-          '',
-          'error'
-        )
-      }
+   
     })
   }
 
@@ -131,27 +92,7 @@ export class OpenFileComponent implements OnInit {
       confirmButtonText: 'Sim, Aprovar!',
       cancelButtonText: 'Não, Cancelar!',
       reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.depositocaixasService.aprovarDepositoCaixa(deposito_id,loja_id,transacaoId).subscribe(
-          (response) => {
-           this.closeModal.nativeElement.click();
-           this.loadList.emit(Object(response).data);
-          },
-          (error) => {
-            this.depositocaixasService.loading = false;
-          }
-        );
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Operação Cancelada',
-          '',
-          'error'
-        )
-      }
-    })
+    }).then((result) => {})
     
   }
 

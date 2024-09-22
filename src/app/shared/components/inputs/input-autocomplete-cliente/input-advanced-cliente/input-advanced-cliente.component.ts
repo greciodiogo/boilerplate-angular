@@ -1,7 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, Input, Self, Optional, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Cliente } from '@app/resources/Modules/01CRM/models/Cliente';
 import { Filter } from '@app/shared/models/Filters/Filter';
 import { FormService } from '@app/shared/services/form.service';
 import { finalize } from 'rxjs/operators';
@@ -136,7 +135,7 @@ export class InputAdvancedClienteComponent
 
   inputCleared(){
     this.onChange(null)
-    this.selected.emit(new Cliente());
+    // this.selected.emit(new Cliente());
   }
 
 

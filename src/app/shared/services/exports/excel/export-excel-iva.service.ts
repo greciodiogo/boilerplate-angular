@@ -18,7 +18,7 @@ export class ExportExcelIvaService {
     excelFileName,
     totais
   ) {
-    var footer = ['UNIG4TELCO'];
+    var footer = ['boiler-angular-dashboard'];
     var header = ['Imposto de Valor Acrescentado - DÉBITOS'];
     var header2 = ['Imposto de Valor Acrescentado - CRÉDITOS'];
     var header3 = ['Imposto de Valor Acrescentado - RESUMO'];

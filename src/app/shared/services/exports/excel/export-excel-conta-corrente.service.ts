@@ -27,7 +27,7 @@ export class ExportExcelContaCorrenteService {
     filtros = [],
     resumo
   ) {
-    var footer = ['UNIG4TELCO'];
+    var footer = ['boiler-angular-dashboard'];
     var localDate = JSON.parse(localStorage.getItem('accessToken'));
     var workbook = new Excel.Workbook();
     workbook.creator = 'Web';

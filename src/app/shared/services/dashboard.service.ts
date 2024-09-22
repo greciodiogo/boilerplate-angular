@@ -13,7 +13,7 @@ export class DashboardService {
   constructor(private http: ApiService) {}
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'getTypesIdentities'
    * @return Observable
    */

@@ -27,7 +27,7 @@ export class ExportExcelService {
     colocarResumoAbaixo: boolean = false,
     filtros = [],
   ) {
-    var footer = ['UNIG4TELCO'];
+    var footer = ['boiler-angular-dashboard'];
     var localDate = JSON.parse(localStorage.getItem('accessToken'));
     var workbook = new Excel.Workbook();
     workbook.creator = 'Web';
@@ -367,7 +367,7 @@ export class ExportExcelService {
     dates = [],
     titles = []
   ) {
-    var footer = ['UNIG -[ UNIG4TELCO]'];
+    var footer = ['UNIG -[ boiler-angular-dashboard]'];
     var sheet1 = null;
     var sheet2 = null;
     var sheet = [sheet1, sheet2];
@@ -568,7 +568,7 @@ export class ExportExcelService {
   }
 
   excelPersonalizado(opcoesDadosTabela, opcoesQtd, opcoesNomes, opcoesPosicoesView, opcoesImagem) {
-    var footer = ['UNIG4TELCO'];
+    var footer = ['boiler-angular-dashboard'];
     var localDate = JSON.parse(localStorage.getItem('accessToken'));
     this.workbook = new Excel.Workbook();
     this.workbook.creator = 'Web';
@@ -894,7 +894,7 @@ export class ExportExcelService {
   }
 
   excelPersonalizadoComAddTable(opcoesDadosTabela, opcoesQtd, opcoesNomes, opcoesPosicoesView, opcoesImagem) {
-    var footer = ['UNIG4TELCO'];
+    var footer = ['boiler-angular-dashboard'];
     var localDate = JSON.parse(localStorage.getItem('accessToken'));
     this.workbook = new Excel.Workbook();
     this.workbook.creator = 'Web';

@@ -9,7 +9,6 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Cliente } from '@app/resources/Modules/01CRM/models/Cliente';
 import { Filter } from '@app/shared/models/Filters/Filter';
 import { FormService } from '@app/shared/services/form.service';
 import { finalize } from 'rxjs/operators';
@@ -100,7 +99,7 @@ export class InputAutocompleteClienteComponent
 
   public searchCliente(value) {
     if (value == '') return;
-    this.selected.emit(new Cliente());
+    // this.selected.emit(new Cliente());
     var httpParams = new HttpParams()
       .set('orderBy', this.filter.orderBy.toString())
       .set('typeOrderBy', this.filter.typeOrderBy.toString())
@@ -152,6 +151,6 @@ export class InputAutocompleteClienteComponent
 
   inputCleared() {
     this.onChange(null);
-    this.clear.emit(new Cliente());
+    // this.clear.emit(new Cliente());
   }
 }

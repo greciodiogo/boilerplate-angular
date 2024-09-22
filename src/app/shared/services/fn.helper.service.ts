@@ -279,7 +279,7 @@ export class FnService {
     }
   }
   /**
-   * @author Caniggia Moreira, caniggia.moreira@gmail.com
+   * @author , fonebahia8@gmail.com
    * @deprecated "Converter cada primeira letra de cada palavra em maiúsculas"
    * @param str 
    * @returns 

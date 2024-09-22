@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output, SimpleChange, ViewChild, ElementRef } from '@angular/core';
-import { CaixasService } from '@app/resources/Modules/03Operacoes/02Caixas/services/caixas.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { DepositocaixasService } from '@app/resources/Modules/03Operacoes/02Caixas/services/depositocaixas.service';
 import { FormService } from '@app/shared/services/form.service';
-import { AdiantamentoSolicitacaoService } from '@app/resources/Modules/01CRM/services/adiantamento-solicitacao.service';
- 
+
 
 @Component({
   selector: 'app-file-rejeitar',
@@ -28,10 +25,7 @@ export class FileRejeitarComponent implements OnInit {
   public tipoOperacao: any;
 
   constructor(
-    public caixasService: CaixasService, 
-    private formBuilder: FormBuilder,public formService: FormService ,
-    public depositocaixasService: DepositocaixasService,
-    public adiantamentoSolicitacaoService: AdiantamentoSolicitacaoService,) {
+    private formBuilder: FormBuilder,public formService: FormService){
     this.createForm();
   }
 
@@ -86,32 +80,7 @@ export class FileRejeitarComponent implements OnInit {
       confirmButtonText: 'Sim, Rejeitar!',
       cancelButtonText: 'Não, Cancelar!',
       reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.caixasService.estacionarCaixa(formulario.value, id)
-          .pipe(first())
-          .subscribe(
-            (response) => {
-              this.submitted = false;
-              formulario.reset();
-              this.closeModal.nativeElement.click();
-              this.loadLister.emit(id);
-              
-            },
-            (error) => {
-              this.submitted = false;
-            }
-          );
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Operação Cancelada',
-          '',
-          'error'
-        )
-      }
-    })
+    }).then((result) => {})
   }
 
 
@@ -161,31 +130,7 @@ export class FileRejeitarComponent implements OnInit {
       confirmButtonText: 'Sim, Rejeitar!',
       cancelButtonText: 'Não, Cancelar!',
       reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.adiantamentoSolicitacaoService.rejeitar({anexo_motivo_id :this.simpleForm.value.anexo_motivo_id ,description :this.simpleForm.value.description},transacao_id,solicitacaoId)
-        .pipe(first())
-        .subscribe(
-          (response) => {
-           // this.findAllPedidos();
-           this.closeModal.nativeElement.click();
-           this.loadLister.emit(Object(response).data);
-          },
-          (error) => {
-           
-          }
-        );  
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Operação Cancelada',
-          '',
-          'error'
-        )
-      }
-    })
-    
+    }).then((result) => {})
   }
 
   public rejeitarDepositoCaixa(deposito_id,loja_id,transacao_id ) {
@@ -206,27 +151,7 @@ export class FileRejeitarComponent implements OnInit {
       confirmButtonText: 'Sim, Rejeitar!',
       cancelButtonText: 'Não, Cancelar!',
       reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.depositocaixasService.rejeitarDepositoCaixa(deposito_id,loja_id,{anexo_motivo_id :this.simpleForm.value.anexo_motivo_id ,description :this.simpleForm.value.description},transacao_id).subscribe(
-          (response) => {
-            this.closeModal.nativeElement.click();
-            this.loadLister.emit(Object(response).data);
-          },
-          (error) => {
-          this.depositocaixasService.loading = false;
-          }
-          );
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Operação Cancelada',
-          '',
-          'error'
-        )
-      }
-    })
+    }).then((result) => {})
       
     }
 }

@@ -13,7 +13,7 @@ export class RechargeService extends BaseStorageService {
   }
 
 /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite actualizar'
    * @param form
    * @param params
