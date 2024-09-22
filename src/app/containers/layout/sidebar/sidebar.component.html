@@ -1,0 +1,2676 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-40 sidebar-dark-info">
+  <!-- Brand Logo -->
+  <a routerLink="/dashboard" class="brand-link">
+    <img src="../../../../assets/img/{{ logotipo }}" alt="AdminLTE Logo" class="brand-imagee img-circlee elevation-3e"
+      style="opacity: 0.8; width: 104px" />
+    <span class="brand-text font-weight-lightf" style="color: black"><b></b></span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel d-flex">
+      <div class="image">
+        <img src="../../../../assets/img/avatar5.png" class="img-circlee elevation-2e" alt="User Image" />
+      </div>
+      <div class="info">
+        <a href="#" class="d-block">{{ this.authenticated.user.name }}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+        data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview">
+          <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Página Principal</p>
+          </a>
+        </li>
+        <!--CRM-->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('modulo-crm')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-sitemap"></i>
+            <p>
+              CRM
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-clientes')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon" style="padding: 9px 10px !important"></i>
+                <p>
+                  Gestão de Clientes
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <!-- ------------------------------------------------ -->
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('criar-clientes')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-plus nav-icon"></i>
+                    <p>
+                      Registar Cliente
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/create/particular" routerLinkActive="active" class="nav-link" *ngIf="
+                          this.canActivateRouterLink(
+                            'criar-clientes-particular'
+                          )
+                        ">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Cliente Particular</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/create/empresarial" routerLinkActive="active" class="nav-link" *ngIf="
+                          this.canActivateRouterLink(
+                            'criar-clientes-empresarial'
+                          )
+                        ">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Cliente Empresarial</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- <li
+                  class="nav-item has-treeview"
+                  routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-propostas')"
+                >
+                  <a href="#" class="nav-link">
+                    <i class="far fa-folder nav-icon"></i>
+                    <p>
+                      Gestão de Agentes
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a
+                        routerLink="/crm/clientes/create/agente/novo"
+                        routerLinkActive="active"
+                        class="nav-link"
+                        *ngIf="this.canActivateRouterLink('criar-clientes')"
+                      >
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Novo Agente</p>
+                      </a>
+                    </li>
+                    <li
+                      class="nav-item"
+                      *ngIf="this.canActivateRouterLink('listar-propostas')"
+                    >
+                      <a
+                        routerLink="/crm/clientes/create/agente/consultar"
+                        routerLinkActive="active"
+                        class="nav-link"
+                      >
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Consultar Agentes</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li> -->
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('consultar-clientes')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>
+                      Consultar Clientes
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/activos" routerLinkActive="active" class="nav-link" *ngIf="
+                          this.canActivateRouterLink('listar-clientes-activos')
+                        ">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Clientes Activos</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/potenciais" routerLinkActive="active" class="nav-link"
+                        *ngIf="
+                          this.canActivateRouterLink(
+                            'listar-potenciais-clientes'
+                          )
+                        ">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Potenciais Clientes</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/registado-por-agentes" routerLinkActive="active"
+                        class="nav-link" *ngIf="
+                          this.canActivateRouterLink('registados-por-gentes-crm')
+                        ">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Registados Por Agentes</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/aniversariantes" routerLinkActive="active" class="nav-link"
+                        *ngIf="
+                          this.canActivateRouterLink(
+                            'listar-clientes-aniversariantes'
+                          )
+                        ">
+                        <i class="fa fa-calendar nav-icon"></i>
+                        <p>Consultar Aniversariantes</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/incumprimentos" routerLinkActive="active" class="nav-link"
+                        *ngIf="
+                          this.canActivateRouterLink('listar-incumprimentos')
+                        ">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Incumprimentos</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/entidades" routerLinkActive="active" class="nav-link"
+                        *ngIf="
+                          this.canActivateRouterLink(
+                            'listar-entidade-cativadoras'
+                          )
+                        ">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Entidades Cativadoras</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('conta-corrente')">
+                      <a routerLink="/crm/clientes/consultar/conta-corrente" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-cc nav-icon"></i>
+                        <p>Conta Corrente</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/servicos" routerLinkActive="active" class="nav-link"
+                        *ngIf="this.canActivateRouterLink('detalhe-servico')">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Detalhe Serviço</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a routerLink="/crm/clientes/consultar/estatutos" routerLinkActive="active" class="nav-link"
+                        *ngIf="this.canActivateRouterLink('cliente-estatutos-listar')">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Estatutos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configs-cliente')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Cliente
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tipo-clientes')">
+                      <a routerLink="/crm/clientes/configs/tipoclientes/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo de Clientes</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tipo-contas')">
+                      <a routerLink="/crm/clientes/configs/tipocontas/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo de Contas</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-tipo-identidade')
+                      ">
+                      <a routerLink="/crm/clientes/configs/identidades/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo de Identidades</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-generos') ||
+                        this.canActivateRouterLink('listar-estado-civil')
+                      ">
+                      <a routerLink="/crm/clientes/configs/generos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Géneros/Estado Civil</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-config-desconto')
+                      ">
+                      <a routerLink="/crm/clientes/configs/descontos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Config. Descontos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('submodulo-proformas')">
+              <a href="#" class="nav-link">
+                <i class="far fa-folder nav-icon"></i>
+                <p>
+                  Proformas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-proforma')">
+                  <a routerLink="/crm/proformas/registar-proforma" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Registar Proforma</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-proformas')">
+                  <a routerLink="/crm/proformas/listar-proformas" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Proformas</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-propostas')">
+              <a href="#" class="nav-link">
+                <i class="far fa-folder nav-icon"></i>
+                <p>
+                  Propostas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-propostas')">
+                  <a routerLink="/crm/propostas/registar-proposta" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-plus nav-icon"></i>
+                    <p>Elaborar Nova Proposta</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-propostas')">
+                  <a routerLink="/crm/propostas/listar-propostas" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Propostas</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li *ngIf="canActivateRouterLink('interconexoes')" class="nav-item has-treeview"
+              routerLinkActive="menu-open">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Interconexão<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-trunk')">
+                  <a routerLink="/crm/interconexao/listar-trunk" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-file-archive-o nav-icon"></i>Trunk</a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('detalhe-interconexao')">
+                  <a routerLink="/crm/interconexao/detalhe-interconexao" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-file-archive-o nav-icon"></i> Detalhes
+                    Interconexão</a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-parcerias')">
+                  <a routerLink="/crm/interconexao/listar-parcerias" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-search nav-icon"></i> Consultar
+                    Parcerias</a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configs-interconexao')">
+
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Interconexão
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('config-tipo-trunk')">
+                      <a routerLink="/crm/interconexao/configs/tipo-trunk/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo Trunk</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('config-tipo-direccao-trunk')">
+                      <a routerLink="/crm/interconexao/configs/tipo-direcao-trunk/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo Direcção</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!--END CRM-->
+
+        <!-- VENDAS -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('comercial')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-shopping-cart"></i>
+            <p>
+              Comercial
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('modulo-vendas')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon"></i>
+                <p>
+                  Vendas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-facturas')">
+                          <a routerLink="/comercial/facturacao/registar" routerLinkActive="active" class="nav-link">
+                            <i class="fa fa-plus nav-icon"></i>
+                            <p>Nova Venda</p>
+                          </a>
+                        </li> -->
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-historico-vendas')">
+                  <a [routerLink]="['/comercial/vendas/historico','HistoricoDeVendas']" routerLinkActive="active"
+                    class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Histórico Vendas</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('ponto-de-venda')">
+                  <a routerLink="/comercial/vendas/pdv" routerLinkActive="active" class="nav-link" target="_blink"
+                    style="background: #dee2e6; color: #001f3f">
+                    <i class="fa fa-laptop nav-icon"></i> Ponto Venda - POS</a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('pedido-reversao')">
+                  <a routerLink="/comercial/reversao/reversao" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-refresh nav-icon"></i> Reversão de Vendas</a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('carregamentos-pme')">
+                  <a href="javascript:void(0)" class="nav-link">
+                    <i class="fa fa-tags nav-icon"></i>
+                    <p>
+                      Carregamento PME
+                      <i class="right fa fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-carregamentos-pme')
+                      ">
+                      <a routerLink="/comercial/facturacao/pme/carregamentos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Listar Carregamentos PME</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('carregamento-directo-pme')
+                      ">
+                      <a routerLink="/comercial/facturacao/pme/directo" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-refresh nav-icon"></i>
+                        <p>Carregamento Directo</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('activacao-planos-pme')">
+                      <a routerLink="/comercial/facturacao/pme/plano" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-refresh nav-icon"></i>
+                        <p>Activação de Planos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('modulo-facturacao')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon"></i>
+                <p>
+                  Facturação
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-factura-ocasicional')">
+                  <a routerLink="/comercial/facturacao/ocasional" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-plus nav-icon"></i>
+                    <p> Factura Ocasional</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-facturas')">
+                  <a routerLink="/comercial/facturacao/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Histórico de Facturação</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('modulo-impressao-massiva')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-folder nav-icon"></i>
+                    <p>
+                      Impressão Massiva
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('gerar-impressao-massiva')">
+                      <a routerLink="/impressao-massiva/gerar-impressao-massiva" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-print nav-icon"></i>
+                        <p>Gerar Impressão Massiva</p>
+                      </a>
+                    </li>
+                    <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('ponto-de-venda')">
+                    <a routerLink="/comercial/vendas/pdv" routerLinkActive="active" class="nav-link" target="_blink"
+                      style="background: #dee2e6; color: #001f3f">
+                      <i class="fa fa-laptop nav-icon"></i> Ponto Venda - POS</a>
+                  </li> -->
+                  </ul>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="
+                    this.canActivateRouterLink('modulo-facturacao-automatica')
+                  ">
+                  <a href="javascript:void(0)" class="nav-link">
+                    <i class="fa fa-tags nav-icon"></i>
+                    <p>
+                      Facturação Automática
+                      <i class="right fa fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-pre-facturacao')
+                      ">
+                      <a routerLink="/comercial/facturacao/pre-facturacao-listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-book nav-icon"></i>
+                        <p>Listar Pré-Facturação</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-pre-facturacao')">
+                      <a routerLink="/comercial/facturacao/pre-facturacao" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-refresh nav-icon"></i>
+                        <p>Processar Pré-Facturação</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-pre-facturacao-ict')
+                      ">
+                      <a routerLink="/comercial/facturacao/pre-facturacao-ict" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-book nav-icon"></i>
+                        <p>Pré-Facturação ICT</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('criar-facturacao-final')
+                      ">
+                      <a routerLink="/comercial/facturacao/auto-final-listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-refresh nav-icon"></i>
+                        <p>Processar Facturação Final</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="canActivateRouterLink('cobrancas')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-money nav-icon"></i>
+                <p>
+                  Cobranças
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="canActivateRouterLink('recebimentos')">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-folder nav-icon"></i>
+                    <p>
+                      Recebimentos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-recibos')">
+                      <a routerLink="/comercial/cobrancas/recebimentos/gerar-recibos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Gerar Recibos</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-recibos')">
+                      <a routerLink="/comercial/cobrancas/recebimentos/consultar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Consultar recibos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+
+          </ul>
+        </li>
+        <!--END VENDAS-->
+
+        <!--LOGISTICA-->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('logistica')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-cogs"></i>
+            <p>
+              Logística
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-armazens')">
+              <a routerLink="/logistica/armazens/listar" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-university nav-icon"></i>
+                Armazéns
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-produtos')">
+              <a routerLink="/logistica/produtos/listar" routerLinkActive="active" class="nav-link"><i
+                  class="far fa-folder nav-icon"></i>
+                <p>Produtos/Serviços</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('stock')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon"></i>
+                <p>
+                  Gestão de Stock
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-mercadorias')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-folder nav-icon"></i>
+                    <p>
+                      Mercadorias
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-pedido-produtos')
+                      ">
+                      <a routerLink="/logistica/gestao-stock/mercadoria/pedido-produtos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Pedido Central-Fornecedor</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-pedido-produtos-stock-entre-lojas-logistica')
+                  ">
+                      <a routerLink="/inventario/pedido-produtos-loja" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-folder nav-icon"></i>
+                        <p>Pedido Lojas-Lojas</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-entrada-factura')
+                      ">
+                      <a routerLink="/logistica/gestao-stock/mercadoria/entrada-factura-po" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Entrada Factura ou PO</p>
+                      </a>
+                    </li>
+
+                    <!-- <li
+                      class="nav-item"
+                      *ngIf="
+                        this.canActivateRouterLink('listar-permission')
+                      "
+                    >
+                      <a
+                        routerLink="/logistica/gestao-stock/mercadoria/entrada-manual"
+                        routerLinkActive="active"
+                        class="nav-link"
+                      >
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Entrada Manual</p>
+                      </a>
+                    </li> -->
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-mercadorias')">
+                      <a routerLink="/logistica/gestao-stock/mercadoria/listar-mercadoria" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Listar Mercadorias</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                      *ngIf="this.canActivateRouterLink('submodulo-transferencia-mercadoria-logistica')">
+                      <a href="#" class="nav-link">
+                        <i class="fa fa-exchange-alt nav-icon"></i>
+                        <p>
+                          Transf. de Mercadoria
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+
+
+                        <li class="nav-item" *ngIf="this.canActivateRouterLink('transferencia-do-armazem-local')">
+                          <a routerLink="/logistica/gestao-stock/mercadoria/transferir-do-armazem-local"
+                            routerLinkActive="active" class="nav-link">
+                            <i class="fa fa-exchange-alt nav-icon"></i>
+                            <p>Transferir Mercadorias</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item" *ngIf="this.canActivateRouterLink('historico-transferencia-mercadorias')">
+                          <a routerLink="/logistica/gestao-stock/mercadoria/historico-transferencia-mercadorias"
+                            routerLinkActive="active" class="nav-link">
+                            <i class="fa fa-exchange-alt nav-icon"></i>
+                            <p>Histórico de Transferências</p>
+                          </a>
+                        </li>
+
+                      </ul>
+                    </li>
+
+                    <!--<li
+                      class="nav-item"
+                      *ngIf="this.canActivateRouterLink('listar-role')"
+                    >
+                      <a
+                        routerLink="/logistica/gestao-stock/mercadoria/fazer-devolucao"
+                        routerLinkActive="active"
+                        class="nav-link"
+                      >
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Fazer Devoluções</p>
+                      </a>
+                    </li>
+
+                    <li
+                      class="nav-item"
+                      *ngIf="this.canActivateRouterLink('listar-role')"
+                    >
+                      <a
+                        routerLink="/logistica/gestao-stock/mercadoria/listar-devolucao"
+                        routerLinkActive="active"
+                        class="nav-link"
+                      >
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Listar Devoluções</p>
+                      </a>
+                    </li>-->
+                  </ul>
+                </li>
+
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-movimentacao-stock')
+                  ">
+                  <a routerLink="/logistica/gestao-stock/movimentacao-stock" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Movimentação de Stock</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-stock-existente')">
+                  <a routerLink="/logistica/gestao-stock/stock-existente" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Stock Existente</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-stock-detalhado-logistica')">
+                  <a routerLink="/logistica/gestao-stock/stock-detalhado-logistica" routerLinkActive="active"
+                    class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Stock Detalhado</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-lote-produto-logistica')">
+                  <a routerLink="/logistica/gestao-stock/listar-lote-produto-logistica" routerLinkActive="active"
+                    class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Lote dos Produtos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-caixa-produto-lote')">
+                  <a routerLink="/logistica/gestao-stock/listar-caixa-produto-lote" routerLinkActive="active"
+                    class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Caixa Produto Lote</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('config-produtos-tipo-conta-logistica')">
+                  <a routerLink="/logistica/gestao-stock/config-produtos" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p>Config. Produtos e Tipo Conta</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="canActivateRouterLink('configurar-bundles-logistica')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>
+                  Configurar Bundles<i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-bundles-logistica')">
+                  <a routerLink="/logistica/bundles/listar" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Lista de Bundles</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-fornecedores')">
+              <a routerLink="/logistica/fornecedores/listar" routerLinkActive="active" class="nav-link"><i
+                  class="far fa-folder nav-icon"></i>
+                <p>Fornecedores</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!--END LOGISTICA-->
+
+        <!-- Reporting & BI-->
+        <li class="nav-item" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('reporting-bi')">
+          <a routerLink="/reportingbi/menus" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-line-chart"></i>
+            <p>Reporting & BI</p>
+          </a>
+        </li>
+        <!--END Reporting & BI-->
+        <!-- FINANCERIRA -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('modulo-financas')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-calculator"></i>
+            <p>Finanças <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('dahboard-financas')">
+              <a routerLink="/financas/dashboard" routerLinkActive="active" class="nav-link">
+                <p><i class="fa fa-tachometer-alt nav-icon"></i> Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('pagamentos-financas')">
+              <a routerLink="/financas/pagamentos" routerLinkActive="active" class="nav-link">
+                <p><i class="fa fa-money nav-icon"></i> Pagamentos</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-pagamentos')">
+              <a routerLink="/financas/facturas" routerLinkActive="active" class="nav-link">
+                <p><i class="fa fa-book nav-icon"></i> Facturas</p>
+              </a>
+            </li>
+            <!--   <li
+              class="nav-item"
+              *ngIf="this.canActivateRouterLink('deposit-requests-financas')"
+            >
+              <a
+                routerLink="/financas/depositos"
+                routerLinkActive="active"
+                class="nav-link"
+              >
+                <p><i class="fa fa-bank nav-icon"></i>Deposit Requests</p>
+              </a>
+            </li> -->
+            <li *ngIf="this.canActivateRouterLink('financas-depositos-request')" class="nav-item has-treeview"
+              routerLinkActive="menu-open">
+              <a href="#" class="nav-link" routerLinkActive="active">
+                <i class="fa fa-home nav-icon"></i>
+                <p>
+                  Deposit Requests
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink(
+                      'financas-depositos-adiantamento'
+                    )
+                  ">
+                  <a routerLink="/financas/depositos" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Depósito adiantamento</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-depositos-loja')">
+                  <a routerLink="/financas/deposito-loja" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Depósito loja</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-deposito-self-care')">
+                  <a routerLink="/financas/deposito-self-care" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Depósitos Self-Care</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('lojas-financas')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-home nav-icon"></i>
+                <p>
+                  Lojas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-caixa-estacionados')
+                  ">
+                  <a routerLink="/operacoes/caixa/caixa-estacionados" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Caixas Estacionados</p>
+                  </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                  <a routerLink="/financas/cofres-loja" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Cofre das lojas</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('historico-lojas-financas')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Históricos <i class="right fas fa-angle-left"></i></p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" routerLinkActive="active" *ngIf="
+                        this.canActivateRouterLink('historico-movimento-loja')
+                      ">
+                      <a routerLink="/operacoes/loja/movimento-loja" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Movimentos de Lojas</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="
+                        this.canActivateRouterLink('historico-movimento-caixa')
+                      ">
+                      <a routerLink="/operacoes/loja/movimento-caixa" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Movimentos de Caixas</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="
+                        this.canActivateRouterLink('listar-historico-vendas')
+                      ">
+                      <a routerLink="/comercial/vendas/historico" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Consultar Vendas</p>
+                      </a>
+                    </li>
+                    <li class="nav-item d-none" routerLinkActive="active"
+                      *ngIf="this.canActivateRouterLink('depositos-caixa')">
+                      <a routerLink="/acl/logs/operations" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Consultar Depósitos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- END FINANCERIRA -->
+
+        <!-- OPERAÇÕES -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="canActivateRouterLink('listar-operacoes')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-cog"></i>
+            <p>
+              Operações
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="canActivateRouterLink('caixas')">
+              <a href="javascript:void(0)" class="nav-link"><i class="fa fa-calculator nav-icon"></i>
+                <p>Caixa <i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('abertura-caixa')">
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#aberturaCaixaModal"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-plus-circle nav-icon"></i> Abertura de
+                    Caixa</a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('fecho-caixa')">
+                  <a routerLink="/operacoes/caixa/fecho" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-key nav-icon"></i> Fecho de Caixa</a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('movimentos-caixa')">
+                  <a routerLink="/operacoes/caixa/movimento" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-search nav-icon"></i> Movimentos de
+                    Caixa</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('operacoes-loja')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Operações de Loja<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('abertura-loja')">
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#aberturaLojaModal"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-plus-circle nav-icon"></i> Abertura de
+                    Loja</a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('abertura-caixa-massiva')">
+                  <a routerLink="/operacoes/loja/AberturaCaixaMassiva" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-plus-circle nav-icon"></i> Abertura de
+                    Caixa Massiva</a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-excesso-loja')">
+                  <a routerLink="/operacoes/caixa/gorgeta" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-plus-circle nav-icon"></i>Excesso</a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('fecho-loja')"></li>
+                <li class="nav-item">
+                  <a routerLink="/operacoes/loja/fecho-loja" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-key nav-icon"></i> Fecho de Loja</a>
+                </li>
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-caixa-estacionados')
+                  ">
+                  <a routerLink="/operacoes/caixa/caixa-estacionados" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Caixas Estacionados</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('depositos-caixa')">
+                  <a routerLink="/operacoes/caixa/deposito" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-money nav-icon"></i>Consultar Depósitos de
+                    Caixa</a>
+                </li>
+
+                <!--  <li class="nav-item"><a href="javascript:void(0)"
+              data-toggle="modal" data-target="#depositoLojaModal" routerLinkActive="active" class="nav-link">
+              <i class="fa fa-money nav-icon"></i> Deposito Loja</a>
+           </li>-->
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('transferencia-dinheiro')">
+                  <a routerLink="/operacoes/loja/transferecia-dinheiro" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-money nav-icon"></i>
+                    <p>Transferências de Dinheiro</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('cofre')">
+                  <a routerLink="/operacoes/loja/cofre" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Cofre</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-pedido-produtos-loja')
+                  ">
+                  <a routerLink="/inventario/pedido-produtos-loja" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Pedido de Produto Lojas-Lojas</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-pedido-produtos-central-operacoes')
+                  ">
+                  <a routerLink="/logistica/gestao-stock/mercadoria/pedido-produtos-central-operacoes"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Pedido de Produtos Central-Fornecedor</p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('submodulo-transferencia-mercadoria-operacoes')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-exchange-alt nav-icon"></i>
+                    <p>
+                      Transf. de Produtos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('transferencia-produtos-Lojas-operacoes')">
+                      <a routerLink="/logistica/gestao-stock/mercadoria/transferir-do-armazem-local"
+                        routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-exchange-alt nav-icon"></i>
+                        <p>Transferir Produtos</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('historico-transferencia-mercadorias')">
+                      <a routerLink="/logistica/gestao-stock/mercadoria/historico-transferencia-mercadorias"
+                        routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-exchange-alt nav-icon"></i>
+                        <p>Histórico de Transferências</p>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('historico-loja')">
+                  <a routerLink="/estadosReclamacao" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-search nav-icon"></i>
+                    <p>Consultar Historico</p>
+                  </a>
+                </li> -->
+                <!-- <li class="nav-item">
+                  <a routerLink="/estadosReclamacao" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-money nav-icon"></i>
+                    <p>Validar Valor em Mão</p>
+                  </a>
+                </li> -->
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('consultar-tpa')">
+                  <a routerLink="/configs/geral/tpas/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar TPA´s</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-utilizadores-loja')">
+                  <a routerLink="/estadosReclamacao" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-users nav-icon"></i>
+                    <p>Utilizadores</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-produto-servico-loja')
+                  ">
+                  <a routerLink="/estadosReclamacao" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-users nav-icon"></i>
+                    <p>Produtos/Serviços</p>
+                  </a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="canActivateRouterLink('historico-loja')">
+                  <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                    <p>
+                      Histórico das Lojas<i class="right fa fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('historico-movimento-loja')">
+                      <a routerLink="/operacoes/loja/movimento-loja" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-folder nav-icon"></i>
+                        <p>Movimentos de Loja</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="canActivateRouterLink('historico-movimento-caixa')">
+                      <a routerLink="/operacoes/loja/movimento-caixa" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-folder nav-icon"></i>
+                        <p>Movimentos de Caixa</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open" *ngIf="canActivateRouterLink('ofertas')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Ofertas<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview" routerLinkActive="menu-open">
+                <li class="nav-item" routerLinkActive="menu-open" *ngIf="canActivateRouterLink('listar-tarifarios')">
+                  <a class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Tarifários <i class="right fa fa-angle-left"></i></p>
+                  </a>
+
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('consultar-tarifarios')">
+                      <a routerLink="/operacoes/ofertas/tarifarios" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-search nav-icon"></i>
+                        <p>Consultar Tarifários</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="canActivateRouterLink('configurar-tarifarios')">
+                      <a routerLink="/operacoes/ofertas/tarifarios-config" routerLinkActive="active" class="nav-link"><i
+                          class="nav-icon fa fa-cog"></i>
+                        <p>Config Tarifários</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-planos')">
+                  <a routerLink="/operacoes/ofertas/planos" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Planos</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('reclamacoes')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Gestão de Reclamação<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('dashboard-reclamacao')">
+                  <a routerLink="/operacoes/reclamacao/dashboard" routerLinkActive="active" class="nav-link"
+                    style="background: #cae3e9;"><i class="nav-icon fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('registar-reclamacao')">
+                  <a routerLink="/operacoes/reclamacao/registar" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-plus nav-icon"></i> Registar Nova Reclamação</a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-tipo-reclamacao')">
+                  <a routerLink="/operacoes/reclamacao/listar" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Listar Reclamações</a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="!this.canActivateRouterLink('configs-reclamacao')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Reclamação
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-tipo-reclamacao')">
+                      <a routerLink="/operacoes/reclamacao/configs/tipos" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-book nav-icon"></i> Tipo Reclamação</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!canActivateRouterLink('listar-prioridades-reclamacao')">
+                      <a routerLink="/operacoes/reclamacao/configs/prioridades" routerLinkActive="active"
+                        class="nav-link"><i class="fa fa-book nav-icon"></i> Prioridades</a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="!canActivateRouterLink('listar-estados-reclamacao')">
+                      <a routerLink="/operacoes/reclamacao/configs/estados" routerLinkActive="active"
+                        class="nav-link"><i class="fa fa-book nav-icon"></i>
+                        <p>Estados Reclamação</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" *ngIf="!canActivateRouterLink('listar-tipo-reclamacao')">
+                  <a routerLink="/operacoes/reclamacao/historico" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Histórico de Reclamações</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-pedidos')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Gestão de Pedidos<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="!this.canActivateRouterLink('dashboard-pedidos-gestao-pedidos')">
+                  <a routerLink="/operacoes/pedidos/dashboard" routerLinkActive="active" class="nav-link"
+                    style="background: #cae3e9;"><i class="nav-icon fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="nav-item" *ngIf="!this.canActivateRouterLink('listar-pedidos-gestao-de-pedidos')">
+                  <a routerLink="/operacoes/pedidos/listar" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Listar Pedidos</a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-pedidos-carregamento-lte')">
+                  <a routerLink="/operacoes/pedidos/carregamentos" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Pedido de Carregamento</a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configs-pedidos-gestao-pedidos')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Pedidos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-tipo-pedidos-gestao-pedidos')">
+                      <a routerLink="/operacoes/pedidos/configs/tipos" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-book nav-icon"></i> Tipo Pedidos</a>
+                    </li>
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-envio-email-gestao-pedidos')">
+                      <a routerLink="/operacoes/pedidos/configs/config-envio-email" routerLinkActive="active"
+                        class="nav-link"><i class="fa fa-book nav-icon"></i> Config Envio de Email</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-historico-pedidos-gestao-pedidos')">
+                  <a routerLink="/operacoes/pedidos/historico" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Histórico de Pedidos</a>
+                </li>
+              </ul>
+            </li>
+
+
+            <!--GESTÃO OS-->
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-ordem-servico')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Ordem Serviços<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('dashboard-ordem-servico')">
+                  <a routerLink="/operacoes/os/dashboard" routerLinkActive="active" class="nav-link"
+                    style="background: #cae3e9;"><i class="nav-icon fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('registar-ordem-servico')">
+                  <a routerLink="/operacoes/os/registar" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-plus nav-icon"></i> Criar Ordem Serviço</a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-ordem-servico')">
+                  <a routerLink="/operacoes/os/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i> Consultar Ordem Serviços</a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-ordem-servico')">
+                  <a routerLink="/operacoes/ot/lista" routerLinkActive="active" class="nav-link"><i
+                    class="fa fa-search nav-icon"></i> Ordem Trabalhos</a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configs-ordem-servico')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-tipo-reclamacao')">
+                      <a routerLink="/operacoes/os/configs/tipos" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-book nav-icon"></i> Tipo Ordem Serviços</a>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </li>
+
+            <!--GESTÃO OS-->
+
+            <!--GESTÃO Ordem Trabalho  BEGIN-->
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-ordem-servico')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Ordem Trabalhos<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-ordem-servico')">
+                  <a routerLink="/operacoes/ot/lista" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-book nav-icon"></i> Listar Ordem Trabalho</a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-ordem-servico')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-ordem-servico')">
+                      <a routerLink="/operacoes/ot/configs/tipos" routerLinkActive="active" class="nav-link"><i
+                          class="fa fa-book nav-icon"></i> Tipo Ordem Trabalho</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <!--GESTÃO Ordem Trabalho END-->
+
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-de-equipas')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Gestão de Equipas<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+ 
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-equipas')">
+                  <a routerLink="/operacoes/equipas/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i> Consultar Equipas</a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configs-equipas')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Equipas
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="canActivateRouterLink('listar-tipo-equipas')">
+                      <a routerLink="/operacoes/equipas/tipo-equipa/listar" routerLinkActive="active"
+                        class="nav-link"><i class="fa fa-book nav-icon"></i> Tipo Equipas</a>
+                    </li>
+
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="canActivateRouterLink('aprovisionamento')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>Aprovisionamento<i class="right fa fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-sim-card')">
+                  <a [routerLink]="['/operacoes/aprovisionamento/simcards-listar/','Aprovisionamento' ]"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Consultar SIM CARD's</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-numeracao')">
+                  <a [routerLink]="['/operacoes/aprovisionamento/numeracao-listar/','Aprivisionamento' ]"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Consultar Numeração</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-numero-especial')">
+                  <a routerLink="/operacoes/aprovisionamento/numero-especial-listar" routerLinkActive="active"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Número Especial</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('associar-numeros-ao-cbs')">
+                  <a [routerLink]="['/operacoes/aprovisionamento/associar-numeracao-cbs/','Associar_Ao_CBS' ]"
+                    routerLinkActive="active" class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Associar Números Ao CBS</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-voucher-aprivisionamento')">
+                  <a [routerLink]="['/operacoes/aprovisionamento/listar-voucher']" routerLinkActive="active"
+                    class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Listar Voucher </p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-ciclo-aprivisionamento')">
+                  <a [routerLink]="['/operacoes/aprovisionamento/listar-cicloaprovisionamento']" routerLinkActive="active"
+                    class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Aprovisionar SIM CARD'S </p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-safts')">
+              <a routerLink="/operacoes/saft/listar" routerLinkActive="active" class="nav-link"><i
+                  class="far fa-folder nav-icon"></i>
+                <p>Gerar SAFT</p>
+              </a>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="canActivateRouterLink('logs-carregamentos-modulo')">
+              <a href="javascript:void(0)" class="nav-link"><i class="far fa-folder nav-icon"></i>
+                <p>
+                  Carregamentos<i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('logs-carregamentos-pendentes')">
+                  <a routerLink="/operacoes/carregamentos/pendentes" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p> Carregamentos Pendentes</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('logs-carregamentos-falhados')">
+                  <a routerLink="/operacoes/carregamentos/falhados" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Carregamentos Falhados</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="canActivateRouterLink('logs-carregamentos-historico')">
+                  <a routerLink="/operacoes/carregamentos/historico" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-folder nav-icon"></i>
+                    <p>Histórico de Carregamentos</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <!--END OPERAÇÕES-->
+
+        <!--INVENTARIO-->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('listar-inventario')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-folder"></i>
+            <p>
+              Inventário
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('dashboard-stock')">
+              <a routerLink="/stock/dashboard-stock" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon fa fa-search"></i>
+                <p>Stock Inventário</p>
+              </a>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-equipamento')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon" style="padding: 9px 10px !important"></i>
+                <p>
+                  Gestão de Equipamentos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview">
+                  <a routerLink="/inventario/equipamentos/list" routerLinkActive="active" class="nav-link"
+                    *ngIf="this.canActivateRouterLink('listar-equipamento')">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Equipamentos</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configurar-equipamento')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Equipamento
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview" *ngIf="this.canActivateRouterLink('listar-fabricante')">
+                    <li class="nav-item">
+                      <a routerLink="/inventario/equipamentos/configs/fabricantes/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Fabricante</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-modelo')">
+                      <a routerLink="/inventario/equipamentos/configs/modelos/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Modelo</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-tipo-equipamento')
+                      ">
+                      <a routerLink="/inventario/equipamentos/configs/tipoequipamentos/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo Equipamento</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tecnologia')">
+                      <a routerLink="/inventario/equipamentos/configs/tecnologias/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tecnologia</p>
+                      </a>
+                    </li>
+                    <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tecnologia')">
+                      <a routerLink="/inventario/equipamentos/configs/tecnologias/listar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tecnologia</p>
+                      </a>
+                    </li> -->
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-estado')">
+                      <a routerLink="/inventario/equipamentos/configs/estadoequipamentos/listar"
+                        routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Estado</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item" class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-sim-card')">
+              <a routerLink="/inventario/simcards" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon fa fa-search"></i>
+                <p>Consultar SIM Cards</p>
+              </a>
+            </li>
+            <li class="nav-item" class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-numeracao')">
+              <a routerLink="/inventario/numeros" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon fa fa-search"></i>
+                <p>Consultar Números</p>
+              </a>
+            </li>
+            <li class="nav-item" class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('consultar-recargas-fisicas')">
+              <a routerLink="/inventario/recargas" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon fa fa-search"></i>
+                <p>Consultar Recargas Fisicas</p>
+              </a>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('gestao-equipamento-cdma')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-folder nav-icon" style="padding: 9px 10px !important"></i>
+                <p>
+                  Gestão de Equip. CDMA
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview">
+                  <a routerLink="/inventario/equipamentos-cdma/list" routerLinkActive="active" class="nav-link"
+                    *ngIf="this.canActivateRouterLink('listar-equipamento-cdma')">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Equipamentos</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('configurar-equipamento-cdma')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cogs nav-icon"></i>
+                    <p>
+                      Configs Equipamento
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview" *ngIf="this.canActivateRouterLink('listar-fabricante-cdma')">
+                    <li class="nav-item">
+                      <a routerLink="/inventario/equipamentos-cdma/fabricantes" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Fabricante CDMA</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-modelo-cdma')">
+                      <a routerLink="/inventario/equipamentos-cdma/modelos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Modelo CDMA</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tipo-equipamento-cdma')">
+                      <a routerLink="/inventario/equipamentos-cdma/tipoequipamentos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-cog nav-icon"></i>
+                        <p>Tipo Equipamento CDMA</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <!--END INVENTARIO-->
+
+        <!-- CONFIGURAÇÕES -->
+        <li class="nav-item has-treeview" *ngIf="this.canActivateRouterLink('configuracoes')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-cogs"></i>
+            <p>
+              Configurações
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('app-configs')">
+              <a href="javascript:void(0)" class="nav-link">
+                <i class="fa fa-cogs nav-icon"></i>
+                <p>
+                  Configurar App
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-empresa-configs')">
+                  <a routerLink="/configs/empresa" routerLinkActive="active" class="nav-link"><i
+                      class="fa fa-cog nav-icon"></i> Config. Empresa</a>
+                </li>
+                <li class="nav-item" class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="canActivateRouterLink('app-configs')">
+                  <a routerLink="#" routerLinkActive="active" class="nav-link">
+                    <i class="nav-icon fa fa-laptop"></i>
+                    <p>Config. App</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="canActivateRouterLink('geral-configuracoes')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-cog nav-icon"></i>
+                <p>Geral <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="canActivateRouterLink('listar-impostos')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-euro nav-icon"></i>
+                    <p>
+                      Impostos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-impostos')">
+                      <a routerLink="/configs/geral/impostos/registar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Registar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/impostos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Listar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/impostos/isentos" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Isentos</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-documentos')">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-folder nav-icon"></i>
+                    <p>
+                      Documentos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-documentos')">
+                      <a routerLink="/configs/geral/documentos/registar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Registar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-documentos')">
+                      <a routerLink="/configs/geral/documentos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Listar</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-series')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-sort-numeric-asc nav-icon"></i>
+                    <p>
+                      Séries
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-series')">
+                      <a routerLink="/configs/geral/series/registar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Registar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-series')">
+                      <a routerLink="/configs/geral/series/listar" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Listar</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-forma-pagamentos')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-euro nav-icon"></i>
+                    <p>
+                      Formas de Pagamentos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('criar-forma-pagamentos')
+                      ">
+                      <a routerLink="/configs/geral/formasPagamentos/registar" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Registar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                        this.canActivateRouterLink('listar-forma-pagamentos')
+                      ">
+                      <a routerLink="/configs/geral/formasPagamentos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Listar</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('listar-moedas')">
+                  <a href="#" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-money nav-icon"></i>
+                    <p>Moedas <i class="right fas fa-angle-left"></i></p>
+                    <p></p>
+                  </a>
+
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('criar-moedas')">
+                      <a routerLink="/configs/geral/moedas/registar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Registar</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-moedas')">
+                      <a routerLink="/configs/geral/moedas/listar" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Listar</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('listar-lojas')">
+                  <a href="#" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-money nav-icon"></i>
+                    <p>Lojas <i class="right fas fa-angle-left"></i></p>
+                    <p></p>
+                  </a>
+
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-lojas')">
+                      <a routerLink="/operacoes/loja/listar-loja" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-home nav-icon"></i>
+                        <p>Listagem Lojas</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-chefe-loja')">
+                      <a routerLink="/operacoes/loja/listar-chefe-loja" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Supervisor de Loja</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-bancos')">
+                  <a routerLink="/configs/geral/bancos/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-dollar nav-icon"></i>
+                    <p>Coordenadas Bancárias</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('submodulo-grafica-configuracoes')">
+                  <a routerLink="/configs/geral/graficas/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar Gráficas</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tpa-config-geral')">
+                  <a routerLink="/configs/geral/tpas/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Consultar TPA´s</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tipo-anexos')">
+                  <a routerLink="/configs/geral/anexos/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-paperclip nav-icon"></i>
+                    <p>Tipo de Anexos</p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-tecnologia-servico')">
+                  <a routerLink="/configs/geral/tecnologiasServicos/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p>Tecnologia Servico</p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('motivos-rejeicao-anexos')">
+                  <a routerLink="/configs/geral/anexos/listar-motivo-rejeicao-anexo" routerLinkActive="active"
+                    class="nav-link">
+                    <i class="fa fa-paperclip nav-icon"></i>
+                    <p>Motivos de Rejeição de Anexos</p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-produto-grupo')">
+                  <a routerLink="/configs/geral/grupoProtudo/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Grupo de Produtos </p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-produto-categoria')">
+                  <a routerLink="/configs/geral/categoriaProtudo/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Categoria de Produtos </p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-grupo-facturacao')">
+                  <a routerLink="/configs/geral/grupoFacturacao/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Grupo de Facturação </p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-escalao-categoria')">
+                  <a routerLink="/configs/geral/escalaoCategoria/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Escalão Categoria </p>
+                  </a>
+                </li>
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-direccao-configuracoes')">
+                  <a routerLink="/configs/geral/direccao/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Direcção </p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('criar-parametros-gerais')">
+                  <a [routerLink]="['configs/geral/parametros-gerais/listar/','Utilizador' ]" routerLinkActive="active"
+                    class="nav-link"><i class="fa fa-folder nav-icon"></i>
+                    <p>Parâmetro Geral</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="menu-open" *ngIf="canActivateRouterLink('geral-configuracoes')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p>Recursos de Rede <i class="right fas fa-angle-left"></i></p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/central" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Central</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/armarios" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Armários</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/cabos" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Cabos</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/caixas" routerLinkActive="active" class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Caixas</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/cabos-pares" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Cabos Pares</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-impostos')">
+                      <a routerLink="/configs/geral/recursos-rede/caixas-pares" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="far fa-folder nav-icon"></i>
+                        <p>Caixas Pares</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item" *ngIf="canActivateRouterLink('listar-organismo-estado')">
+                  <a routerLink="configs/geral/parametros-gerais/listar/organismo" routerLinkActive="active"
+                    class="nav-link"><i class="fa fa-building nav-icon"></i>&nbsp;
+                    <p>Organismo de Estado</p>
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-direccao-configuracoes')">
+                  <a routerLink="/configs/geral/parametros-gerais/listar/organismoEstado" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p>Organismo do Estado</p>
+                  </a>
+                </li> -->
+
+
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-estado-servico')">
+                  <a routerLink="/configs/geral/estadoServicos/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p> Estado Serviço </p>
+                  </a>
+                </li>
+
+
+              </ul>
+            </li>
+            <li class="nav-item" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('logistica')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-cog nav-icon"></i>
+                <p>Logística <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview" *ngIf="
+                  this.canActivateRouterLink('listar-tipos-movimento-stock')
+                ">
+                <li class="nav-item">
+                  <a routerLink="/configs/tipo-movimento-stock/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-asterisk nav-icon"></i>
+                    Tipos Movimento Stock
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-institucional')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-home nav-icon"></i>
+                <p>Instituicional <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <!-- <li class="nav-item" routerLinkActive="menu-open">
+                    <a href="#" class="nav-link">
+                      <i class="fa fa-home nav-icon"></i>
+                      <p>Agentes Comerciais <i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a routerLink="/configs/ac/registar" routerLinkActive="active" class="nav-link">
+                          <i class="fa fa-plus nav-icon"></i>
+                          <p>Registar Novo A. Comercial</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a routerLink="/configs/ac/listar" routerLinkActive="active" class="nav-link">
+                          <i class="far fa-folder nav-icon"></i>
+                          <p>Listar Agente Comerciais</p>
+                        </a>
+                      </li>
+                    </ul>
+                 </li> -->
+              </ul>
+            </li>
+
+            <!--LOCALIZAÇÃO-->
+
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-localizacao')">
+              <a routerLink="/configs/geral/localizacao/listar" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-globe nav-icon"></i>
+                <p>Localização</p>
+              </a>
+            </li>
+
+            <!--END CONFIGURAÇÕES-->
+          </ul>
+        </li>
+
+        <!--BEGIN CONTROLO DE ACESSO-->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('controle-acessos')">
+          <a href="#" class="nav-link">
+            <i class="fa fa-unlock nav-icon"></i>
+            <p>
+              Controle Acesso
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-utilizadores')">
+              <a routerLink="/acl/users/listar" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-search nav-icon"></i>
+                <p>Utilizadores</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-permissoes')">
+              <a routerLink="/acl/permissions/listar" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-search nav-icon"></i>
+                <p>Permissões</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-roles')">
+              <a routerLink="/acl/roles/listar" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-search nav-icon"></i>
+                <p>Perfis</p>
+              </a>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-modulos')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-search nav-icon"></i>
+                <p>
+                  Gerir Módulos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-modulos')">
+                  <a routerLink="/acl/modulos/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-plus nav-icon"></i>
+                    <p>Novo Módulo</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-modulos-permissoes')
+                  ">
+                  <a routerLink="/acl/modulos/associar-permissao-modulo" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Associar Módulo-Permissões</p>
+                  </a>
+                </li>
+                <li class="nav-item d-none" *ngIf="
+                    this.canActivateRouterLink('listar-modulos-sobmodulos')
+                  ">
+                  <a routerLink="/acl/modulos/associar-modulos-submodulos" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Associar Módulo-Submódulos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-permissoes-perfis')
+                  ">
+                  <a routerLink="/acl/modulos/associar-permissoes-perfis" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Associar Permissões-Perfis</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-logs')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-unlock nav-icon"></i>
+                <p>
+                  Logs
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('logs-acessos')">
+                  <a routerLink="/acl/logs/acessos" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Acessos</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-logs')" routerLinkActive="active">
+                  <a routerLink="/acl/logs/operations" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Operações</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!--END CONTROLO DE ACESSO-->
+
+        <!-- Reporting & BI-->
+        <li *ngIf="this.canActivateRouterLink('audit-logging')" class="nav-item" class="nav-item has-treeview"
+          routerLinkActive="menu-open">
+          <a routerLink="/logging/lista" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-folder"></i>
+            <p>Audit e Logging</p>
+          </a>
+        </li>
+        <!--END Reporting & BI-->
+
+        <!-- Gestão Documental-->
+        <li class="nav-item" routerLinkActive="menu-open" *ngIf="this.canActivateRouterLink('gestao-documental')">
+          <a routerLink="/gestaodocumental/meusdocumentos" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-folder"></i>
+            <p>Gestão Documental</p>
+          </a>
+        </li>
+        <!--END Reporting & BI-->
+
+  <!-- MEDIAÇÃO -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('modulo-mediacao')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-folder"></i>
+            <p>Mediação<i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li *ngIf="!this.canActivateRouterLink('nomal-mediacao')" class="nav-item has-treeview"
+              routerLinkActive="menu-open">
+              <a href="#" class="nav-link" routerLinkActive="active">
+                <i class="fa fa-book nav-icon"></i>
+                <p>
+                  Normal
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-dahboard')">
+                  <a routerLink="/mediation/dashboard" routerLinkActive="active" class="nav-link">
+                    <p><i class="fa fa-tachometer-alt nav-icon"></i> Dashboard</p>
+                  </a>
+                </li>
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-prefixos')">
+              <a routerLink="/mediation/prefixo" routerLinkActive="active" class="nav-link">
+                <p><i class="fa fa-money nav-icon"></i> Prefixos</p>
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-tarifarios')">
+              <a routerLink="/mediation/tarifario" routerLinkActive="active" class="nav-link">
+                <p><i class="fa fa-book nav-icon"></i> Tarifarios</p>
+              </a>
+            </li> -->
+
+                <!-- <li class="nav-item" *ngIf="
+            this.canActivateRouterLink(
+              'mediacao-cdr-inputs'
+            )
+          ">
+              <a routerLink="/mediation/cdr_inputs" routerLinkActive="active" class="nav-link">
+                <i class="fa fa-book nav-icon"></i>
+                <p>CDR Inputs</p>
+              </a>
+            </li> -->
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-cdr-error')">
+                  <a routerLink="/mediation/cdr_error" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Erros CDR</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-operators')">
+                  <a routerLink="/mediation/operators" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Operadores</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-green_numbers')">
+                  <a routerLink="/mediation/green_numbers" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Green Numbers</p>
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-operators-code')">
+                  <a routerLink="/mediation/operators_code" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Operators Code</p>
+                  </a>
+                </li> -->
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-price-list')">
+                  <a routerLink="/mediation/price_list" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Produtos</p>
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item" *ngIf="!this.canActivateRouterLink('mediacao-price-list-taxe')">
+                  <a routerLink="/mediation/price_list_taxe" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Product List Taxe</p>
+                  </a>
+                </li> -->
+
+
+
+                <!-- <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-depositos-loja')">
+          <a routerLink="/financas/deposito-loja" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-play nav-icon"></i>
+            <p>Executar Mediação</p>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-deposito-self-care')">
+          <a routerLink="/financas/deposito-self-care" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-book nav-icon"></i>
+            <p>Charge - Apuração</p>
+          </a>
+        </li> -->
+
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('mediacao-normalize-events')">
+                  <a routerLink="/mediation/normalize_events" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Eventos Normalizados </p>
+                  </a>
+                </li>
+
+                <li *ngIf="this.canActivateRouterLink('modulo-mediacao-anomalias')" class="nav-item has-treeview"
+                  routerLinkActive="menu-open">
+                  <a href="#" class="nav-link" routerLinkActive="active">
+                    <i class="fa fa-home nav-icon"></i>
+                    <p>
+                      Anomalias
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('validar-anomalias-mediacao')">
+                      <a routerLink="/mediation/anomalia_listar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-book nav-icon"></i>
+                        <p>Listagem</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--
+        <li class="nav-item" *ngIf="this.canActivateRouterLink('financas-deposito-self-care')">
+          <a routerLink="/financas/deposito-self-care" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-phone nav-icon"></i>
+            <p>Validar Nº Telefone </p>
+          </a>
+        </li> -->
+              </ul>
+            </li>
+
+            <li *ngIf="this.canActivateRouterLink('bulk-sms')" class="nav-item has-treeview"
+              routerLinkActive="menu-open">
+              <a href="#" class="nav-link" routerLinkActive="active">
+                <i class="fa fa-book nav-icon"></i>
+                <p>
+                  Bulk SMS
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('bulk_normalize_events')">
+                  <a routerLink="/mediation/bulk_normalize_events" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Bulk Normalize Event</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('bulk-head-normalize-events')">
+                  <a routerLink="/mediation/bulk_head_normalize_events" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Bulk Head Normalize Event</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('rate-bulk-cdr-errors')">
+                  <a routerLink="/mediation/rate-bulk-cdr-errors" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Rate Bulk CDR Errors</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('rate-bulk-sms-price')">
+                  <a routerLink="/mediation/rate-bulk-sms-price" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Rate Bulk SMS Price</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('rate-bulk-cliente')">
+                  <a routerLink="/mediation/rate-bulk-cliente" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Rate Bulk Cliente</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('rate-bulk-cliente-codes')">
+                  <a routerLink="/mediation/rate-bulk-cliente-codes" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Rate Bulk Cliente Codes</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <!-- END MEDIAÇÃO -->
+
+
+
+        <!-- INTEGRAÇÃO -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('modulo-integracao')">
+          <a href="#" class="nav-link">
+            <i class="fa fa-book nav-icon"></i>
+            <p>Integração<i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-primavera')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-book nav-icon"></i>
+                <p>
+                  Primavera
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('primavera-listar-movimento')"
+                  routerLinkActive="active">
+                  <a routerLink="/integracao/primavera/movimentos" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Movimentos Primavera</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- END INTEGRAÇÃO -->
+
+        <!-- MARKETING -->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+        *ngIf="!this.canActivateRouterLink('modulo-marketing')">
+        <a href="#" class="nav-link" routerLinkActive="active">
+          <i class="fa fa-bullhorn nav-icon"></i>
+          <p>Marketing<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item has-treeview" routerLinkActive="menu-open"
+            *ngIf="!this.canActivateRouterLink('listar-campanhas')">
+            <a routerLink="/marketing/campanhas/listar" routerLinkActive="active" class="nav-link">
+              <i class="fa fa-bullhorn nav-icon"></i>
+              <p>
+                G. Campanhas
+              </p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- END MARKETING -->
+
+
+        <!--END Suporte-->
+        <li *ngIf="this.canActivateRouterLink('suporte')" class="nav-item" class="nav-item has-treeview"
+          routerLinkActive="menu-open">
+          <a routerLink="/suporte" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-info"></i>
+            <p>Suporte</p>
+          </a>
+        </li>
+        <li *ngIf="this.canActivateRouterLink('reciclagem')" class="nav-item" class="nav-item has-treeview"
+          routerLinkActive="menu-open">
+          <a routerLink="/reciclagem/lista" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-trash"></i>
+            <p>Reciclagem</p>
+          </a>
+        </li>
+
+        <li *ngIf="this.canActivateRouterLink('modulo-call-center')" class="nav-item" class="nav-item has-treeview"
+          routerLinkActive="menu-open">
+          <a routerLink="/callCenter/init" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon fa fa-phone"></i>
+            <p>Call Center</p>
+          </a>
+        </li>
+
+        <!--Selfie Care-->
+        <li class="nav-item has-treeview" routerLinkActive="menu-open"
+          *ngIf="this.canActivateRouterLink('modulo-self-care')">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-sitemap"></i>
+            <p>
+              Config Self-Care
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item has-treeview" routerLinkActive="active"
+              *ngIf="this.canActivateRouterLink('listar-produto-self-care')">
+              <a routerLink="/selfCare/produto/listar" class="nav-link">
+                <i class="fa fa-folder nav-icon" style="padding: 9px 10px !important"></i>
+                <p>
+                  Produtos
+                  <!-- <i class="right fas fa-angle-left"></i> -->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="active"
+              *ngIf="this.canActivateRouterLink('listar-forma-de-pagamento-self-care')">
+              <a routerLink="/selfCare/forma-pagamento/listar" class="nav-link">
+                <i class="far fa-folder nav-icon"></i>
+                <p>
+                  Formas de Pagamentos
+                  <!-- <i class="right fas fa-angle-left"></i> -->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview d-none" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-loja-self-care')">
+              <a href="#" class="nav-link">
+                <i class="far fa-folder nav-icon"></i>
+                <p>
+                  Lojas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('listar-agentes-selfcare')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-unlock nav-icon"></i>
+                <p>
+                  Agentes
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-agentes-unig-core-selfcare')">
+                  <a routerLink="/crm/clientes/consultar/agentes" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Listar Agentes(Unig Core)</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview" routerLinkActive="menu-open"
+              *ngIf="this.canActivateRouterLink('controle-acessos-selfcare')">
+              <a href="#" class="nav-link">
+                <i class="fa fa-unlock nav-icon"></i>
+                <p>
+                  Controle Acesso
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-utilizadores')">
+                  <a routerLink="/selfCare/users-gerais/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Utilizadores Gerais</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-permissoes')">
+                  <a routerLink="/selfCare/permissoes/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Permissões</p>
+                  </a>
+                </li>
+                <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-roles')">
+                  <a routerLink="/selfCare/perfis/listar" routerLinkActive="active" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>Perfis</p>
+                  </a>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-modulos')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-search nav-icon"></i>
+                    <p>
+                      Gerir Módulos
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-modulos')">
+                      <a routerLink="/selfCare/gerir-modulos/listar" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-plus nav-icon"></i>
+                        <p>Novo Módulo</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-modulos-permissoes')
+                  ">
+                      <a routerLink="/selfCare/gerir-modulos/associar-permissao-modulo" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Associar Módulo-Permissões</p>
+                      </a>
+                    </li>
+                    <li class="nav-item d-none" *ngIf="
+                    this.canActivateRouterLink('listar-modulos-sobmodulos')
+                  ">
+                      <a routerLink="/selfCare/gerir-modulos/associar-modulos-submodulos" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Associar Módulo-Submódulos</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="
+                    this.canActivateRouterLink('listar-permissoes-perfis')
+                  ">
+                      <a routerLink="/selfCare/gerir-modulos/associar-permissoes-perfis" routerLinkActive="active"
+                        class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Associar Permissões-Perfis</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item has-treeview" routerLinkActive="menu-open"
+                  *ngIf="this.canActivateRouterLink('listar-logs')">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-unlock nav-icon"></i>
+                    <p>
+                      Logs
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('logs-acessos')">
+                      <a routerLink="/acl/logs/acessos" routerLinkActive="active" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Acessos</p>
+                      </a>
+                    </li>
+                    <li class="nav-item" *ngIf="this.canActivateRouterLink('listar-logs')" routerLinkActive="active">
+                      <a routerLink="/acl/logs/operations" class="nav-link">
+                        <i class="fa fa-search nav-icon"></i>
+                        <p>Operações</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        <!--END Selfie Care-->
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

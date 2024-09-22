@@ -1,0 +1,57 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalRegistarPermissaoDeCampo" data-backdrop="static">
+    <div class="modal-dialog modal-lg " style="max-width: 1150px;">
+      <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+        <!-- Modal Header -->
+        <form [formGroup]="simpleFormPermission" (submit)="onSubmit();">
+          <div class="modal-header">
+            <h4 class="modal-title">{{ title }}</h4>
+            <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body" style="padding: 2rem;">
+            <ngx-loading [show]="permissionFieldService.loading"></ngx-loading>
+            <div class="row">
+  
+              <div class="col-md-6">
+                <div class="form-group has-warning">
+                  <label class="col-form-label" for="name">Nome</label>&nbsp;
+                  <label style="color: #f44336" class="mr-2">*</label>
+                  <input class="form-control" required autofocus id="name" type="text" 
+                    formControlName="name" placeholder="name" autocomplete="given-name" (keyup)="preencherSlug($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors.required">O campo nome é obrigatório</div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-md-6">
+                <div class="form-group has-warning">
+                  <label class="col-form-label" for="slug">Slug</label>&nbsp;
+                  <label style="color: #f44336" class="mr-2">*</label>
+                  <input class="form-control" [value]="this.simpleFormPermission.value.name" required autofocus
+                    id="slug" type="text" formControlName="slug" placeholder="Registar Permissão"
+                    autocomplete="given-slug"
+                    [ngClass]="{ 'is-invalid': submitted && f.slug.errors, 'is-valid': f.slug.touched && !f.slug.errors }" />
+                  <div *ngIf="submitted && f['slug'].errors" class="invalid-feedback">
+                    <div *ngIf="f['slug'].errors.required">O campo slug no menu é obrigatório</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleFormPermission.pristine && !submitted"
+              (click)="onReset()">Limpar</button>
+            <button class="btn btn-primary mr-1 btn-sm" type="submit"
+              [disabled]="simpleFormPermission.pristine || simpleFormPermission.invalid" data-style="expand-left"><i
+                class="fa fa-save"></i>
+              Registar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

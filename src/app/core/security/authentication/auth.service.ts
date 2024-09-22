@@ -2,18 +2,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '@app/core/providers/api.service';
-import { Authenticated } from '@app/resources/Modules/06Security/00Auth/models/authenticated';
+import { Authenticated } from '@app/Modules/06Security/00Auth/models/authenticated';
 
-import { User } from '@app/resources/Modules/06Security/02Users/models/User';
+import { User } from '@app/Modules/06Security/02Users/models/User';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { environment as env } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-import { Permission } from '@app/resources/Modules/06Security/01Acl/models/Permission';
-import { Token } from '@app/resources/Modules/06Security/00Auth/models/token';
-import { PermissionFields } from '@app/resources/Modules/06Security/01Acl/models/PermissionFields';
+import { Permission } from '@app/Modules/06Security/01Acl/models/Permission';
+import { Token } from '@app/Modules/06Security/00Auth/models/token';
+import { PermissionFields } from '@app/Modules/06Security/01Acl/models/PermissionFields';
 @Injectable({
   providedIn: 'root',
 })

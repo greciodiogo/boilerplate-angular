@@ -1,0 +1,103 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalRegistarRole" data-backdrop="static">
+  <div class="modal-dialog modal-lg " style="max-width: 1150px;">
+    <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+      <!-- Modal Header -->
+      <form [formGroup]="simpleFormRole" (submit)="onSubmit();">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ title }}</h4>
+          <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;">
+          <ngx-loading [show]="roleService.loading"></ngx-loading>
+          <app-alert></app-alert>
+
+          <div class="row"  *ngIf="this.roleService.canActivateRouterLink('definir-pode-ter-mais-de-uma-sessao-aberta-role')">
+            <div class="col-md-4">
+              <div class="form-group has-warning  text-justify">
+                <label class="col-form-label" for="more_session">Pode Ter Mais de Uma Sessão Aberta?</label>
+                <input class="form-control " autofocus id="more_session" type="checkbox" formControlName="more_session"
+                   autocomplete="given-more_session" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="name">Nome</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <input class="form-control" required autofocus id="name" type="text" formControlName="name"
+                  placeholder="nome" autocomplete="given-name"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors.required">O campo nome é obrigatório</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="slug">Slug</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <input class="form-control" required autofocus id="slug" type="text" formControlName="slug"
+                  placeholder="slug" autocomplete="given-name"
+                  [ngClass]="{ 'is-invalid': submitted && f.slug.errors, 'is-valid': f.slug.touched && !f.slug.errors }" />
+                <div *ngIf="submitted && f['slug'].errors" class="invalid-feedback">
+                  <div *ngIf="f['slug'].errors.required">O campo Slug é obrigatório</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="slug">Direcção</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <select class="form-control" required autofocus id="direccao_id" formControlName="direccao_id"
+                (change)="notificarAlteracaoInfluenciaNoUser()"
+                [ngClass]="{ 'is-invalid': submitted && f.direccao_id.errors, 'is-valid': f.direccao_id.touched && !f.direccao_id.errors }">
+                  <option [value]="null">Seleccione</option>
+                  <option *ngFor="let d of direccoes" [value]="d.id">{{d.designacao}}</option>
+                </select>
+                <div *ngIf="submitted && f['direccao_id'].errors" class="invalid-feedback">
+                  <div *ngIf="f['direccao_id'].errors.required">O campo Direcção é obrigatório</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group has-warning">
+                  <label class="col-form-label" for="abrir_caixa"> Abrir Caixa ?</label>
+                  <div class="input-group mb-3">
+                    <select formControlName="abrir_caixa" class="form-control"  autofocus
+                      [ngClass]="{ 'is-invalid': submitted && f.abrir_caixa.errors, 'is-valid': f.abrir_caixa.touched && !f.abrir_caixa.errors }">
+                      <option [value]="null">Seleccione</option>
+                      <option value="1">Sim</option>
+                      <option value="0">Não</option>
+                    </select>
+                    <!-- <div *ngIf="submitted && f['estado'].errors" class="invalid-feedback">
+                      <div *ngIf="f['estado'].errors.required">O campo Estado é obrigatório</div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleFormRole.pristine && !submitted"
+            (click)="onReset()">Limpar</button>
+          <button class="btn btn-success btn-sm mr-1" type="submit" [disabled]="simpleFormRole.valid">Validar</button>
+          <button class="btn btn-primary mr-1 btn-sm" type="submit"
+            [disabled]="simpleFormRole.pristine || simpleFormRole.invalid" data-style="expand-left"><i
+              class="fa fa-save"></i>
+            Registar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

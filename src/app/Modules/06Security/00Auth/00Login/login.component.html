@@ -1,0 +1,64 @@
+<div class="login-container">
+  <div>
+    <img class="at-logo" src="assets/img/at.png" alt="User Image" style="width: 14%; border-radius: 8px;">
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="autenticate()" style="position: relative;"><br>
+      <app-loading [show]="loading" title="Aguarde" subTitle="Estamos a validar as suas credenciais de acesso"></app-loading>
+      <p class="text-muted"></p>
+
+      <div class="row">
+        <!-- <div class="col-md-12 offset-5">
+          <h3>boiler-angular-dashboard</h3>
+          <br>
+        </div> -->
+
+        <mat-form-field appearance="outline" class="example-full-width col-md-12 col-xs-12 col-sm-12">
+          <mat-label>Utilizador</mat-label>
+          <input type="text" matInput formControlName="username" placeholder="utilizador">
+          <mat-icon matSuffix>person</mat-icon>
+
+          <mat-error>É obrigatório informar o nome de Utilizador</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="example-full-width col-md-12 col-xs-12 col-sm-12" style="margin-top: 10px;">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" placeholder="Palavra-passe">
+          <mat-icon matSuffix>lock</mat-icon>
+
+          <mat-error>É obrigatório informar a palavra-passe</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <button class="btn btn-lg btn-block btn-login" style="height: 67px;"><h2>Entrar</h2></button>
+      </div>
+
+      <div class="row help-password">
+
+        <div class="col-sm-4">
+          <label class="rememberme">
+            <input type="checkbox" name="remember" value="1" /> Guardar
+            <span></span>
+          </label>
+        </div>
+
+        <div class="col-sm-8 text-right">
+          <div class="forgot-password">
+          <a href="javascript:;" data-toggle="modal"
+          data-target="#modalEnvioEmailRecuperarPassword" class="forget-password">Esqueceu-se da palavra-passe?</a>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="copyright">
+      <p>2019-2020 UNIG | Todos os Direitos Reservados</p>
+    </div>
+  </div>
+
+  <div class="login-bg"></div>
+
+</div>
+
+<app-recuperar-password></app-recuperar-password>

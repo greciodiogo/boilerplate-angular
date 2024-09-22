@@ -6,7 +6,7 @@ import { AppVersion } from '@env/version';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'unig4 telco';
+  title = 'BoilerPlate angular Dashboard';
 
   constructor(private compiler: Compiler){
     this.compiler.clearCache();

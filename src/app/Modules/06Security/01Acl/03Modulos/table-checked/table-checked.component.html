@@ -1,0 +1,86 @@
+<!-- <ngx-loading [show]="this.moduloService.loading"></ngx-loading> -->
+
+<div class="modal-body">
+  <!-- /.card-body -->
+  <div class="table-responsive">
+    <div class="row col-md-12">
+      <div class="col-md-7 col-xs-12 col-sm-12">
+        <mat-form-field appearance="outline" class="example-full-width ">
+          <mat-label>Pesquisar Permissões por
+            {{(this.filterUncheck.typeFilter==null ||
+            this.filterUncheck.typeFilter=="null" ? "typeFilter" :
+            this.filterUncheck.typeFilter)}}</mat-label>
+          <input matInput [(ngModel)]="this.filterUncheck.search" placeholder='Pesquisar permissão'>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-2 col-xs-2 col-sm-2">
+        <div class="form-group">
+          <div class="example-button-row">
+            <button type="button" (click)="this.listarPermissoesAssociadas()" mat-raised-button class="btn btn-info filter-color-button"
+              type="button" style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+              Filtrar</button>
+          </div>
+          <!-- /.input group -->
+        </div>
+      </div>
+
+      <div class="col-md-3 col-xs-2 col-sm-2 pull-right float-right">
+        <div class="example-button-row" *ngIf="this.permissoesARemover.length>0">
+          <button type="button" (click)="excluirPermissao()" mat-raised-button class="btn btn-info btn-flatt"
+            type="button" style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-save"></i>
+            Excluir</button>
+        </div>
+      </div>
+    
+  </div>
+  <ngx-loading [show]="permissionServiceChecked.loading"></ngx-loading>
+
+  <table class="table table-hover table-bordered table-stripedd
+      text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th style="width: 9%;"><input type="checkbox" (change)="manipularTodosCheckBoxesAssociados($event)"></th>
+        <th>Nome</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permission of permissionsChecked | paginate: { itemsPerPage:
+          this.paginationChecked.perPage, currentPage: this.paginationChecked.page,
+          id:'listTableChecked', totalItems: this.paginationChecked.total }; index as
+          i">
+        <ng-container *ngIf="permission.type_permission=='A'">
+          <td>{{(i+1)}}</td>
+          <td style="width: 9%;">
+            <input (change)="adicionarPermissaoARemover()" type="checkbox" value={{permission.id}}
+              name={{permission.id}} class="permissaoAssociada form-control" id={{permission.id}} />
+          </td>
+          <td class="text-justify">{{ permission.name }}</td>
+          <td class="text-justify">{{ permission.description }}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="modal-footer">
+  <div class="row" style="width: 100%;">
+    <div class="col-sm-12 col-md-5">
+      <div class="dataTables_info">Mostrar de
+        {{paginationChecked.page}} a
+        {{paginationChecked.perPage}} de
+        {{paginationChecked.total}} registo{{ (
+        paginationChecked.total > 1? 's':'')}}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+      <div class="pull-right">
+        <pagination-controls (pageChange)="getPageFilterDataChecked($event)" previousLabel="Anterior" maxSize="6"
+          nextLabel="Próximo" directionLinks="true" responsive="true" id='listTableChecked'></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

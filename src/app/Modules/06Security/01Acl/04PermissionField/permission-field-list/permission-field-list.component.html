@@ -1,0 +1,165 @@
+<div class="row">
+
+    <div class="col-md-12 col-12">
+      <div class="modall modal-info fadee" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 100%;margin-top:0">
+          <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title"> Filtro de Dados</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="row">
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-1 col-xs-2 col-sm-2">
+                  <mat-label>Entrada</mat-label>
+                  <mat-select name="perPage" [(ngModel)]="this.pagination.perPage">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-1 col-xs-2 col-sm-2">
+                  <mat-label>Módulo</mat-label>
+                  <mat-select name="type_filter" [(ngModel)]="this.filter.typeFilter">
+                    <mat-option value="" selected>Filtro</mat-option>
+                    <mat-option value="created_at">Data</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-3 col-xs-2 col-sm-2">
+                  <mat-label>Pesquisar</mat-label>
+                  <input matInput [(ngModel)]="this.filter.search" placeholder='Pesquisar...'>
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+  
+                <div class="col-md-1 col-xs-2 col-sm-2">
+                  <mat-radio-group aria-label="Select an option" [(ngModel)]="this.filter.typeOrderBy">
+                    <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                    <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+  
+                <div class="col-md-1 col-xs-2 col-sm-2">
+                  <div class="form-group">
+                    <div class="example-button-row">
+                      <button type="button" (click)="listarPermission()" mat-raised-button class="btn btn-info btn-flat"
+                        type="button" style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+                        Filtrar</button>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-lg-12 col-12">
+      <div class="modall modal-info fadee" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 100%;">
+          <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">TABELA DE PERMISSÕES DE CAMPOS</h4>
+  
+              <div class="card-tools">
+                <button class="btn btn-outline-primary btn-sm btn-flat" type="button" (click)="listarPermission()"><i
+                    class="icon-refresh"></i> Recarregar Dados</button>
+                <button class="btn btn-primary btn-sm btn-flat" type="button" data-toggle="modal"
+                (click)="permissionFieldCreateOrEditComponent.setPermission(null)"
+                  data-target="#modalRegistarPermissaoDeCampo"><i class="icon-plus"></i> Registar Permissão</button>
+              </div>
+  
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <!-- /.card-body -->
+              <div class="table-responsivee">
+  
+  
+                <ngx-loading [show]="permissionFieldService.loading"></ngx-loading>
+                <table class="table table-hover table-bordered table-stripedd
+                  text-center m-0 exportAsXLSXCliente">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nome</th>
+                      <th>Slug</th>
+                      <th>Data Actualização</th>
+                      <th style="width: 9%;">Acção</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let permission of permissions | paginate: {
+                      itemsPerPage: this.pagination.perPage, currentPage:
+                      this.pagination.page, id: 'listFact',totalItems:
+                      this.pagination.total }; index as i">
+                      <td>{{(i+1)}}</td>
+                      <td class="text-justify">{{ permission.name }}</td>
+                      <td class="text-justify"><span>{{ permission.slug }}</span></td>
+                      <td>{{ permission.created_at | date: 'dd-MM-yyyy' }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-info btn-flat
+                            dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret">Opções</span>
+                          </button>
+                          <div class="dropdown-menu" permission="menu" x-placement="bottom-start" style="position: absolute;
+                            will-change: transform; top: 0px; left: -58px;
+                            transform: translate3d(67px, 38px, 0px);">
+                            <a href="javascript:void(0)" class="dropdown-item
+                              btn-sm" title="Editar" data-widget="chat-pane-toggle" data-toggle="modal"
+                              *ngIf="this.permissionFieldService.canActivateRouterLink('actualizar-permissoes')"
+                              data-target="#modalRegistarPermissaoDeCampo" (click)="permissionFieldCreateOrEditComponent.setPermission(permission)"><i class="fa
+                                fa-credit-card"></i> Editar</a>
+                            <a href="javascript:void(0)" class="dropdown-item
+                              btn-sm" title="Eliminar" data-toggle="modal" data-widget="chat-pane-toggle"
+                              *ngIf="this.permissionFieldService.canActivateRouterLink('apagar-permissoes')"
+                              data-target="#modalEliminaPermission" (click)="setPermission(permission)"><i class="fa
+                                fa-trash"></i> Eliminar</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row" style="width: 100%;">
+                <div class="col-sm-12 col-md-5">
+                  <div class="dataTables_info">Mostrando de
+                    {{this.pagination.page}} a
+                    {{this.pagination.perPage}} de
+                    {{configService.numberFormat(this.pagination.total)}}
+                    registo{{ ( this.pagination.total > 1? 's':'')}}
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="pull-right">
+                    <pagination-controls (pageChange)="getPageFilterData($event)" previousLabel="Anterior" maxSize="6"
+                      nextLabel="Próximo" directionLinks="true" responsive="true" id='listFact'></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <app-permission-field-create-or-edit [is_modal]="true" (loadList)="listarPermission()" [permission]="permission">
+  </app-permission-field-create-or-edit>
+  <app-delete-data (loadList)="getPageFilterData($event)" (fnDelete)="delete(this.permission.id)"
+    [data]="this.permission.name" modalName="modalEliminaPermission"></app-delete-data>

@@ -1,0 +1,32 @@
+<div
+  class="{{ is_modal ? 'modal fade' : '' }}"
+  id="modalAddRoles"
+  data-backdrop="static"
+>
+  <div class="modal-dialog modal-lg" style="max-width: 1150px">
+    <div
+      class="modal-content {{ !is_modal ? 'modal-content-notboxshadow' : '' }}"
+    >
+      <!-- Modal Header -->
+      <form (submit)="onSubmit()">
+        <div class="modal-header">
+          <h4 class="modal-title">Adicionar Permissões</h4>
+          <button
+            class="close"
+            type="reset"
+            data-dismiss="modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;height: 800px;overflow-y: auto;">
+          <app-table-checked [user]="this.user"></app-table-checked>
+        </div>
+
+        <!-- Modal footer -->
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,293 @@
+<div class="row">
+  <div class="col-md-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%">
+        <div
+          class="modal-content"
+          style="box-shadow: 0 0 0rem rgba(0, 0, 0, 0.5)"
+        >
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Filtro de Dados</h4>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-1 col-xs-2 col-sm-2"
+              >
+                <mat-label>Entrada</mat-label>
+                <mat-select
+                  name="perPage"
+                  [(ngModel)]="this.pagination.perPage"
+                >
+                  <mat-option [value]="5">5</mat-option>
+                  <mat-option [value]="10">10</mat-option>
+                  <mat-option [value]="25">25</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" class="example-full-width
+              col-md-1 col-xs-2 col-sm-2">
+              <mat-label>Utilizador</mat-label>
+              <mat-select name="typeUtilizador" [(ngModel)]="this.typeUtilizador">
+                <!-- <mat-option value="T"selected>Todos</mat-option> -->
+                <mat-option [value]="user.id" *ngFor="let user of users">{{ user.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="example-full-width
+            col-md-1 col-xs-2 col-sm-2">
+            <mat-label>Evento</mat-label>
+            <mat-select name="typeEvento" [(ngModel)]="this.typeEvento">
+              <!-- <mat-option value="T" selected>Todos</mat-option> -->
+              <mat-option [value]="event.name" *ngFor="let event of eventos">{{ event.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+              <!-- <mat-form-field appearance="outline" class="example-full-width
+              col-md-1 col-xs-2 col-sm-2">
+              <mat-label>Auditável</mat-label>
+              <mat-select name="perPage" [(ngModel)]="this.auditavel">
+                <mat-option [value]="">Todos</mat-option>
+                <mat-option value="LinhaPagamento">LinhaPagamento</mat-option>
+                <mat-option value="FActura">FActura</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-1 col-xs-2 col-sm-2"
+              >
+                <mat-label>Filtro</mat-label>
+                <mat-select
+                  name="type_filter"
+                  [(ngModel)]="this.filter.typeFilter"
+                >
+                  <mat-option value="" selected>Filtro</mat-option>
+                  <mat-option value="created_at">Data</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field
+                appearance="outline"
+                class="example-full-width col-md-2 col-xs-2 col-sm-2"
+              >
+                <mat-label>Pesquisar</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="this.filter.search"
+                  placeholder="Pesquisar..."
+                  (keyup)="getPageFilterData($event)"
+                />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <mat-radio-group
+                  aria-label="Select an option"
+                  [(ngModel)]="this.filter.typeOrderBy"
+                >
+                  <mat-radio-button value="ASC"> Crescente</mat-radio-button
+                  ><br />
+                  <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <div class="form-group">
+                  <div class="example-button-row">
+                    <button
+                      type="button"
+                      (click)="listarLogsOperations()"
+                      mat-raised-button
+                      class="btn btn-default btn-lg filter-color-button"
+                      type="button"
+                      style="margin-top: 3px; padding: 6px 16px; width: 116px"
+                    >
+                      <i class="fa fa-search"></i> Filtrar
+                    </button>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-3">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="btn-group">
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle dropdown-icon btn-flat"
+                          data-toggle="dropdown" aria-expanded="false"
+                          [disabled]="(this.logs.length == 0 ? true : false)"> <i class="fa fa-download"></i>
+                          Exportação
+                        </button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="left: 40px;">
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="exportAsPDF();"><i
+                              class="fa fa-file-pdf-o"></i> PDF</a>
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="exportAsXLSX();"><i
+                              class="fa fa-file-excel-o"></i> Excel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+         
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%; margin-top: 0">
+        <div
+          class="modal-content"
+          style="box-shadow: 0 0 0rem rgba(0, 0, 0, 0.5)"
+        >
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">LISTA DE LOGS DAS OPERAÇÕES</h4>
+            <div class="card-tools">
+              <button
+                class="btn btn-outline-primary btn-lg"
+                type="button"
+                (click)="listarLogsOperations()"
+              >
+                <i class="icon-refresh"></i> Recarregar Dados
+              </button>
+            </div>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- /.card-body -->
+            <div class="table-responsive">
+              <app-loading [show]="this.logsService.loading"></app-loading>
+              <table id="logs-operacoes"
+                class="
+                  table table-hover table-bordered table-stripedd
+                  text-center
+                  m-0
+                "
+              >
+                <thead>
+                  <tr>
+                    <th width="45">#</th>
+                    <th width="45">ID</th>
+                    <th width="300">Utilizador</th>
+                    <th width="155">Evento</th>
+                    <th width="155">ID Auditável</th>
+                    <th width="155">Auditável</th>
+                    <th width="155">IP</th>
+                    <th width="155">Mensagem</th>
+                    <th width="155">Estado</th>
+                    <th width="155">URL</th>
+                    <th width="155">Data de Criação</th>
+                    <th width="155">Data de Actualização</th>
+
+                    <th style="width: 5%">Acção</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let log of logs
+                        | paginate
+                          : {
+                              itemsPerPage: this.pagination.perPage,
+                              currentPage: this.pagination.page,
+                              totalItems: this.pagination.total
+                            };
+                      index as i
+                    "
+                  >
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ log.id }}</td>
+                    <td>{{ log?.utilizador?.name }}</td>
+                    <td>
+                      {{ log.event }}
+                    </td>
+                    <td>{{ log.auditable_id }}</td>
+                    <td>{{ log.auditable }}</td>
+                    <td>{{ log.ip }}</td>
+                    <td>{{ log.message }}</td>
+                    <td>
+                      <button
+                        *ngIf="log.success == 1"
+                        type="button"
+                        class="btn btn-block btn-success btn-lg btn-flat"
+                      >
+                        SUCESSO
+                      </button>
+
+                      <button
+                        *ngIf="log.success == 0"
+                        type="button"
+                        class="btn btn-block btn-danger"
+                      >
+                        FALHA
+                      </button>
+                    </td>
+                    <td>{{ log.url }}</td>
+                    <td>{{ log?.create_at | date: "dd-MM-yyyy" }}</td>
+                    <td>{{ log.updated_at | date: "dd-MM-yyyy" }}</td>
+
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        class="btn btn-info"
+                        data-toggle="tooltip"
+                        data-widget="chat-pane-toggle"
+                        title="Editar"
+                        data-toggle="modal"
+                        data-target="#modalPlanoListar"
+                        (click)="setElementLogs(log)"
+                      >
+                        <i class="fa fa-list-alt"></i> Ver
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row" style="width: 100%">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info">
+                  Mostrando de {{ this.pagination.page }} a
+                  {{ this.pagination.perPage }} de
+                  {{ this.pagination.total }} Registos
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7">
+                <div class="pull-right">
+                  <pagination-controls
+                    (pageChange)="getPageFilterData($event)"
+                    previousLabel="Anterior"
+                    maxSize="6"
+                    nextLabel="Proximo"
+                    directionLinks="true"
+                    responsive="true"
+                  >
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-preview-logs
+  [is_modal]="true"
+  (loadList)="listarLogsOperations()"
+  [logs]="logs"
+  [logs_test]="logs_test"
+>
+</app-preview-logs>

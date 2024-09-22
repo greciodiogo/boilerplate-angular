@@ -1,0 +1,194 @@
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="invoice p-3 mb-3" style="height: 900px; overflow: auto;">
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="row">
+
+                        <div class="col-md-4 col-xs-12 col-sm-12">
+                            <div class="invoice p-3 mb-3" style="height: 900px; overflow: auto;">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <h4>Módulos/SubMódulos
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="row">
+                                                <mat-form-field appearance="outline" class="example-full-width
+                                                  col-md-1 col-xs-2 col-sm-2 d-none">
+                                                    <mat-label>Entrada</mat-label>
+                                                    <mat-select name="perPage" [(ngModel)]="this.paginationModulo.perPage">
+                                                        <mat-option [value]="5">5</mat-option>
+                                                        <mat-option [value]="10">10</mat-option>
+                                                        <mat-option [value]="25">25</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                
+                                                <mat-form-field appearance="outline" class="example-full-width
+                                                  col-md-1 col-xs-2 col-sm-2 d-none">
+                                                    <mat-label>Módulo</mat-label>
+                                                    <mat-select name="type_filter" [(ngModel)]="this.typeFilter">
+                                                        <mat-option value="" selected>Filtro</mat-option>
+                                                        <mat-option value="created_at">Data</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                
+                                                <mat-form-field appearance="outline" class="example-full-width
+                                                  col-md-10 col-xs-2 col-sm-2">
+                                                    <mat-label>Pesquisar</mat-label>
+                                                    <input matInput [(ngModel)]="this.search" placeholder='Pesquisar...'>
+                                                    <mat-icon matSuffix>search</mat-icon>
+                                                </mat-form-field>
+                
+                                                <div class="col-md-1 col-xs-2 col-sm-2 d-none">
+                                                    <mat-radio-group aria-label="Select an option" [(ngModel)]="this.typeOrderBy">
+                                                        <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                                                        <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                
+                                                <div class="col-md-1 col-xs-2 col-sm-2">
+                                                    <div class="form-group">
+                                                        <div class="example-button-row">
+                                                            <button type="button" (click)="listarModulos()" mat-raised-button
+                                                                class="btn btn-info btn-flat filter-color-button" type="button"
+                                                                style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+                                                                Filtrar</button>
+                                                        </div>
+                                                        <!-- /.input group -->
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+
+                                            <div class="modal-body row" style="width: 100%;">
+                                                <div class="table-responsive">
+                
+                                                    <app-loading [show]="moduloService.loading"></app-loading>
+                                                    <table class="table table-hover table-bordered table-stripedd
+                                                  text-center m-0 exportAsXLSXCliente col-md-12 col-xs-12">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width: 10%;">#</th>
+                                                                <th style="width: 60%;">Nome</th>
+                                                                <th style="width: 30%;">Tipo</th>
+                                                            </tr>
+                                                        </thead>
+                
+                                                        <tbody>
+                                                            <tr style="cursor: pointer;" *ngFor="let modulo of modulos | paginate: {
+                                                      itemsPerPage: this.paginationModulo.perPage, currentPage:
+                                                      this.paginationModulo.page, id: 'listFactModulos',totalItems:
+                                                      this.paginationModulo.total }; index as i" (click)="pegarModulo(modulo)">
+                                                                <td>{{(i+1)}}</td>
+                                                                <td class="text-justify">{{ modulo.nome }}</td>
+                                                                <td class="text-justify">{{ modulo.is_principal?'Módulo':'SubMódulo' }}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                
+                                            <div class="modal-footer">
+                                                <div class="row" style="width: 100%;">
+                                                    <div class="col-sm-12 col-md-5">
+                                                        <div class="dataTables_info">Mostrando de
+                                                            {{this.paginationModulo.page}} a
+                                                            {{this.paginationModulo.perPage}} de
+                                                            {{this.paginationModulo.total}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-7">
+                                                        <div class="pull-right">
+                                                            <pagination-controls (pageChange)="getPageFilterDataModulo($event)"
+                                                                previousLabel="Anterior" maxSize="6" nextLabel="Próximo"
+                                                                directionLinks="true" responsive="true" id='listFactModulos'>
+                                                            </pagination-controls>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12 col-sm-12">
+                            <div class="invoice p-3 mb-3" style="height: 900px; overflow: auto;">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <h4>Permissões Já Associadas <span *ngIf="noSeleccionado"> {{'a '
+                                                +noSeleccionado.nome }}</span>
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+
+                                                <app-loading [show]="this.moduloService.loading"></app-loading>
+                                                <form (submit)="onSubmit()">
+                                                    <app-table-checked (changeItem)="actualizarListaPermissoes($event)"
+                                                        [role]="role" (noSeleccionadoSaida)="noSeleccionado"
+                                                        [noSeleccionado]="noSeleccionado" [modulos]="modulos"
+                                                        [idModuloAncestral]="idModuloAncestral"
+                                                        [carregarPermissoes]=true></app-table-checked>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-12 col-sm-12">
+                            <div class="invoice p-3 mb-3" style="height: 900px; overflow: auto;">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <h4>Permissões Não Associadas<span *ngIf="noSeleccionado"> {{'a '
+                                                +noSeleccionado.nome }}</span>
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+                                                <app-loading [show]="this.moduloService.loading"></app-loading>
+                                                <form (submit)="onSubmit()">
+                                                    <app-table-unchecked
+                                                        (changeItem)="actualizarListaPermissoes($event)" [role]="role"
+                                                        [modulo_id]="modulo_id" (noSeleccionadoSaida)="noSeleccionado"
+                                                        [noSeleccionado]="noSeleccionado" [modulos]="modulos"
+                                                        [idModuloAncestral]="idModuloAncestral"
+                                                        [carregarPermissoes]=false>
+                                                    </app-table-unchecked>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

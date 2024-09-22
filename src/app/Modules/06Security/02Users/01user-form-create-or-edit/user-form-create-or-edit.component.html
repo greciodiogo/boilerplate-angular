@@ -1,0 +1,192 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalRegistarUser" data-backdrop="static">
+    <div class="modal-dialog modal-lg " style="max-width: 1150px;">
+        <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+        <!-- Modal Header -->
+        <form [formGroup]="simpleFormUser" (submit)="onSubmit();">
+          <div class="modal-header">
+            <h4 class="modal-title">{{ title }}</h4>
+            <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;">
+            <ngx-loading [show]="userService.loading"></ngx-loading>
+
+            <aw-wizard navBarLayout="large-filled">
+                <aw-wizard-step stepTitle="Dados Pessoais" [navigationSymbol]="{ symbol: '1' }" >
+                  <!-- <app-button-file-upload [tiposAnexo]="tiposAnexo" ></app-button-file-upload> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Nome</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" required autofocus id="name" type="text" formControlName="name"
+                              placeholder="Nome" autocomplete="given-name"
+                              [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                              <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                              <div *ngIf="f['name'].errors.required">O campo Nome é obrigatório</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Telefone</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" required autofocus id="telefone" type="text" formControlName="telefone"
+                              placeholder="Ex. 926 000 111" autocomplete="given-name"
+                              [ngClass]="{ 'is-invalid': submitted && f.telefone.errors, 'is-valid': f.telefone.touched && !f.telefone.errors }" />
+                              <div *ngIf="submitted && f['telefone'].errors" class="invalid-feedback">
+                              <div *ngIf="f['telefone'].errors.required">O campo Telefone é obrigatório</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Email</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" required autofocus id="email" type="email" formControlName="email"
+                              placeholder="Email" autocomplete="given-name"
+                              [ngClass]="{ 'is-invalid': submitted && f.email.errors, 'is-valid': f.email.touched && !f.email.errors }" />
+                              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                              <div *ngIf="f['email'].errors.required">O campo Email é obrigatório</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col text-center" style="padding:0 16px; background: #fff; border: 0px solid #c2c7d0;">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" awNextStep mat-raised-button class="btn btn-primary">Seguinte <i class="fa fa-arrow-right"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                </aw-wizard-step>
+                <aw-wizard-step stepTitle="Dados da Conta" [navigationSymbol]="{ symbol: '2' }" >
+                    <div class="row" *ngIf="this.user.id === null">
+
+                        <div class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Username</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" required autofocus id="username" type="text" formControlName="username"
+                              placeholder="username" autocomplete="given-name"
+                              [ngClass]="{ 'is-invalid': submitted && f.username.errors, 'is-valid': f.username.touched && !f.username.errors }" />
+                              <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                              <div *ngIf="f['username'].errors.required">O campo Username é obrigatório</div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Password</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" required autofocus id="password" type="password" formControlName="password"
+                              placeholder="Password" autocomplete="given-name"
+                              [ngClass]="{ 'is-invalid': submitted && f.password.errors, 'is-valid': f.password.touched && !f.password.errors }" />
+                              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                              <div *ngIf="f['password'].errors.required">Password é obrigatório</div>
+                              <div *ngIf="f['password'].errors.minlength">{{formErrors.password.minLength}}</div>
+                              <div *ngIf="f['password'].errors.pattern">{{formErrors.password.pattern}}</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label">Confirmar Password</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <input class="form-control" id="password_confirmation" type="password"
+                                formControlName="password_confirmation" placeholder="Confirmar Senha" autocomplete="new-password"
+                                required
+                                [ngClass]="{ 'is-invalid': submitted && simpleFormUser.errors, 'is-valid': f.password_confirmation.touched && !simpleFormUser.errors }" />
+                              <div *ngIf="submitted && simpleFormUser.errors" class="invalid-feedback">
+                                <div *ngIf="simpleFormUser.errors['passwordMismatch']">As senhas não correspondem </div>
+                              </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label" for="role_id">Perfil</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <div class="input-group mb-6">
+                              <select formControlName="role_id" class="form-control" required autofocus
+                                [ngClass]="{ 'is-invalid': submitted && f.role_id.errors, 'is-valid': f.role_id.touched && !f.role_id.errors }">
+                                <option selected [value]="null">Seleciona o role</option>
+                                <option *ngFor="let role of roles" [value]="role.id"> {{role.name}}</option>
+                              </select>
+                              <div *ngIf="submitted && f['role_id'].errors" class="invalid-feedback">
+                                <div *ngIf="f['role_id'].errors.required">O campo Perfil é obrigatório</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label" for="is_actived">Activação</label>&nbsp;
+                            <label style="color: #f44336" class="mr-2">*</label>
+                            <div class="input-group mb-6">
+                              <select formControlName="is_actived" class="form-control" required autofocus
+                                [ngClass]="{ 'is-invalid': submitted && f.is_actived.errors, 'is-valid': f.is_actived.touched && !f.is_actived.errors }">
+                                <option value="null">Activação</option>
+                                <option [value]="1"> Activo </option>
+                                <option [value]="0"> Inactivo </option>
+                              </select>
+                              <div *ngIf="submitted && f['is_actived'].errors" class="invalid-feedback">
+                                <div *ngIf="f['is_actived'].errors.required">O campo Activação é obrigatório</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group has-warning">
+                            <label class="col-form-label" for="loja_id">Loja</label>
+                            <div class="input-group mb-6">
+                              <select formControlName="loja_id" class="form-control" autofocus
+                                [ngClass]="{ 'is-invalid': submitted && f.loja_id.errors, 'is-valid': f.loja_id.touched && !f.loja_id.errors }">
+                                <option value=''>Loja</option>
+                                <option *ngFor="let loja of lojas" [value]="loja.id">{{loja.nome}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <div class="col-md-12">
+                            <div class="col text-center" style="padding:0 16px; background: #fff; border: 0px solid #c2c7d0;">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" awPreviousStep mat-raised-button class="btn btn-primary"><i class="fa fa-arrow-left"></i> Anterior</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                </aw-wizard-step>
+            </aw-wizard>
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleFormUser.pristine && !submitted"
+              (click)="onReset()">Limpar</button>
+            <button class="btn btn-success btn-sm mr-1" type="submit"
+              [disabled]="simpleFormUser.valid">Validar</button>
+            <button class="btn btn-primary mr-1 btn-sm" type="submit"
+              [disabled]="simpleFormUser.pristine || simpleFormUser.invalid" data-style="expand-left"><i
+                class="fa fa-save"></i>
+              Registar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

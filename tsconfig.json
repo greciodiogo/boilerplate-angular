@@ -10,7 +10,7 @@
       "@core/*": ["app/core/*"],
       "@providers/*": ["app/core/providers/*"],
       "@containers/*": ["app/containers/*"],
-      "@resources/*": ["app/resources/*"],
+      "@resources/*": ["app/Modules/*"],
       "@env/*": ["environments/*"],
     },
     "outDir": "./dist/out-tsc",

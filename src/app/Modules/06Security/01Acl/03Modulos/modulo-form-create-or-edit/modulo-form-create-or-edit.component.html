@@ -1,0 +1,261 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalRegistarModulo" data-backdrop="static">
+  <div class="modal-dialog modal-lg " style="max-width: 1600px;">
+    <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+      <!-- Modal Header -->
+      <form [formGroup]="simpleFormModulo" (submit)="onSubmit();">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ title }}</h4>
+          <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;">
+          <ngx-loading [show]="moduloService.loading"></ngx-loading>
+          <div class="row">
+
+            <div class="col-md-7">
+
+              <div class="row">
+
+                <div class="col-md-2">
+                  <div class="form-group has-warning text-center">
+                    <label class="col-form-label" for="is_principal">É SubMódulo?</label>
+                    <input class="form-control" [value]="(this.simpleFormModulo.value.is_principal)?0:1"
+                      [checked]="(this.is_principal)?false:true" autofocus id="is_principal"
+                      (change)="setSubModulo($event)" type="checkbox" placeholder="1"
+                      autocomplete="given-is_principal" />
+                  </div>
+                </div>
+
+                <div class="col-md-5">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="nome">Nome</label>&nbsp;
+                    <label style="color: #f44336" class="mr-2">*</label>
+                    <input class="form-control" required autofocus id="nome" type="text" formControlName="nome"
+                      placeholder="Configurações" autocomplete="given-nome" (keyup)="preencherSlug()"
+                      [ngClass]="{ 'is-invalid': submitted && f.nome.errors, 'is-valid': f.nome.touched && !f.nome.errors }" />
+                    <div *ngIf="submitted && f['nome'].errors" class="invalid-feedback">
+                      <div *ngIf="f['nome'].errors.required">O campo nome é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-5">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="slug">Slug</label>&nbsp;
+                    <label style="color: #f44336" class="mr-2">*</label>
+                    <input class="form-control" required id="slug" type="text" formControlName="slug" placeholder="slug"
+                      autocomplete="given-slug" [value]="textoSlug"
+                      [ngClass]="{ 'is-invalid': submitted && f.slug.errors, 'is-valid': f.slug.touched && !f.slug.errors }" />
+                    <div *ngIf="submitted && f['slug'].errors" class="invalid-feedback">
+                      <div *ngIf="f['slug'].errors.required">O campo Slug é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="slug">Nome no Menu</label>
+                    <input class="form-control" formControlName="nome_menu" required id="nome_menu" type="text"
+                      placeholder="Nome no Menu" autocomplete="given-nome_menu"
+                      [value]="this.simpleFormModulo.value.nome" />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="cor_texto_nome">Cor do Nome</label>
+                    <input style="width: 100%; height: 47px;"
+                      [style.background]="this.simpleFormModulo.value.cor_texto_nome" type="text" class="form-control"
+                      autofocus id="cor_texto_nome" formControlName="cor_texto_nome" placeholder="#FFF"
+                      autocomplete="given-cor_texto_nome" />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="cor_fundo_nome">Cor do Fundo do Nome</label>
+                    <input style="width: 100%; height: 47px;"
+                      [style.background]="this.simpleFormModulo.value.cor_fundo_nome" type="text" class="form-control"
+                      autofocus id="cor_fundo_nome" formControlName="cor_fundo_nome" placeholder="#FFF"
+                      autocomplete="given-cor_fundo_nome" />
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="ordem">Ordem</label>
+                    <input class="form-control" autofocus id="ordem" type="text" formControlName="ordem"
+                      (keypress)="validarNumeroRegexKeyPress($event)"
+                      (focusout)="validarPosicaoPontoVirgulaAoSair($event)" 
+                      (keyup)="validarNumeroKeyUp($event)" placeholder="1"
+                      autocomplete="given-ordem" />
+                    <div class="text-danger">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="icone">Nome do Ícone</label>
+                    <input class="form-control" autofocus id="icone" type="text" formControlName="icone"
+                      placeholder="fa fa-cog" autocomplete="given-icone" />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="icone">Cor do Fundo do Ícone</label>
+                    <input style="width: 100%; height: 47px;" formControlName="cor_fundo_icone"
+                      [style.background]="this.simpleFormModulo.value.cor_fundo_icone" type="text" class="form-control"
+                      autofocus id="cor_fundo_icone" placeholder="#FFF" autocomplete="given-cor_fundo_icone" />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="icone">Cor do Ícone</label>
+                    <input style="width: 100%; height: 47px;" [style.background]="this.simpleFormModulo.value.cor_icone"
+                      class="form-control" type="text" autofocus id="cor_icone" placeholder="#FFFFFF"
+                      formControlName="cor_icone" autocomplete="given-icone" />
+                    <!-- [(colorPicker)]="cor_icone" -->
+                  </div>
+                </div>
+
+
+                <div class="col-md-2">
+                  <div class="form-group has-warning text-center">
+                    <label class="col-form-label" for="is_principal">Tem Permissão?</label>
+                    <input class="form-control" [value]="(this.simpleFormModulo.value.permission_id == null)?0:1"
+                      [checked]="(this.simpleFormModulo.value.permission_id == null)?false:true" autofocus
+                      id="tem_permissao" (change)="setTemPermissao($event)" type="checkbox" placeholder="1"
+                      autocomplete="given-is_principal" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="descricao">Texto a Pesquisar</label>
+                    <input type="text" [disabled]="!this.tem_permissao" class="form-control" id="pesquisar_permissao" />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="descricao">Filtrar</label>
+                    <button class="form-control btn btn-info" [disabled]="!this.tem_permissao"
+                      (click)="getPermissoesPorEntidadeRelacionada($event)">Filtrar</button>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="descricao">Permissão</label>
+                    <select formControlName="permission_id" class="form-control" id="permission_id"
+                      [disabled]="!this.tem_permissao"
+                      [ngClass]="{ 'is-invalid': submitted && tem_permissao && this.simpleFormModulo.value.permission_id == null, 'is-valid': submitted && tem_permissao && this.simpleFormModulo.value.permission_id > 0}">
+                      <option value="null">Seleccione</option>
+                      <option [disabled]="!this.tem_permissao" *ngFor="let p of permissoes" [value]="p.id">{{p.name}}
+                      </option>
+                    </select>
+
+                    <div *ngIf="submitted && tem_permissao && this.simpleFormModulo.value.permission_id == null"
+                      class="invalid-feedback">
+                      <div *ngIf="f['permission_id'].errors.required">O campo permissão é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group has-warning">
+                    <label class="col-form-label" for="descricao">Descrição</label>
+                    <input class="form-control" [value]="this.simpleFormModulo.value.nome" autofocus id="descricao"
+                      type="text" formControlName="descricao" placeholder="descrição" autocomplete="given-descricao" />
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-md-5">
+
+              <div class="row dividerLine">
+                <h4> {{tituloModuloSubModulo}}</h4>
+                <hr>
+                <br>
+                <table class="table table-hover table-bordered table-stripedd text-center m-0">
+                  <!-- <thead> -->
+                  <tr>
+                    <th class="text-justify" style="width: 9%;"><input class="form-control" type="checkbox"
+                        (change)="manipularTodosCheckBoxes($event)"></th>
+                    <th class="text-justify" style="width: 70%;vertical-align: middle;">Nome<div
+                        style="margin-top:-10% !important;margin-left:15%">&nbsp;<input placeholder="pesquisar"
+                          class="form-control" type="text" style="width:70%;" id="texto_pesquisar" /></div>&nbsp;<div
+                        style="margin-top:-11% !important;margin-left:80%; cursor: pointer;"><i
+                          class="fa fa-search text-danger" title="Filtrar" (click)="listarModulosESubModulos()"></i>
+                      </div>
+                    </th>
+                    <th class="text-justify" style="width: 20%;">Ordem</th>
+                  </tr>
+                  <!-- </thead> -->
+                </table>
+                <div style="height: 400px; overflow-y:auto; width: 100%;" class="div-divisao">
+                  <table class="d-none2 table table-hover table-bordered table-stripedd text-center m-0">
+                    <tbody id="corpoTabelaModuloSubModulo">
+                      <ng-container *ngFor="let r of modulosSubModulos ; index as i">
+                        <ng-container *ngIf="r.checked">
+                          <tr *ngIf="(modulo && modulo.id !=r.id) || (r.id>0 && !modulo)">
+                            <td style="width: 9%;" class="text-justify"><input class="form-control idModuloSubModulo"
+                                type="checkbox" value="{{ r.id }}" [checked]="r.checked"></td>
+                            <td style="width: 70%;" class="text-justify">{{ r.nome }}</td>
+                            <td style="width: 20%;" class="text-justify"><input id="{{ r.id }}"
+                                value="{{pegarOrdemModulosDoSubModulo(r.id)}}" class="form-control ordemModuloSubModulo"
+                                type="number"></td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container *ngFor="let r of modulosSubModulos ; index as i">
+                        <ng-container *ngIf="!r.checked">
+                          <tr *ngIf="(modulo && modulo.id != r.id) || (r.id>0 && !modulo)">
+                            <td style="width: 9%;" class="text-justify"><input class="form-control idModuloSubModulo"
+                                type="checkbox" value="{{ r.id }}" [checked]="r.checked"></td>
+                            <td style="width: 70%;" class="text-justify">{{ r.nome }}</td>
+                            <td style="width: 20%;" class="text-justify"><input id="{{ r.id }}"
+                                value="{{pegarOrdemModulosDoSubModulo(r.id)}}" class="form-control ordemModuloSubModulo"
+                                type="number"></td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleFormModulo.pristine && !submitted"
+            (click)="onReset()">Limpar</button>
+          <button class="btn btn-success btn-sm mr-1" type="submit" [disabled]="simpleFormModulo.valid">Validar</button>
+          <button class="btn btn-primary mr-1 btn-sm" type="submit" [disabled]="simpleFormModulo.invalid"
+            data-style="expand-left"><i class="fa fa-save"></i>
+            Registar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

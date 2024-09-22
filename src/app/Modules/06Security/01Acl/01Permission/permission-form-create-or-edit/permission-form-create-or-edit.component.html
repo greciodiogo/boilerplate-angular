@@ -1,0 +1,230 @@
+<div class="{{ (is_modal? 'modal fade' :'') }}" id="modalRegistarPermission" data-backdrop="static">
+  <div class="modal-dialog modal-lg " style="max-width: 1150px;">
+    <div class="modal-content {{ ( !is_modal? 'modal-content-notboxshadow' :'') }}">
+      <!-- Modal Header -->
+      <form [formGroup]="simpleFormPermission" (submit)="onSubmit();">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ title }}</h4>
+          <button class="close" type="reset" (click)="onReset()" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem;">
+          <ngx-loading [show]="permissionService.loading"></ngx-loading>
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="name">Nome</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <input class="form-control" required autofocus id="name" type="text" 
+                  formControlName="name" placeholder="name" autocomplete="given-name" (keyup)="preencherSlug($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors, 'is-valid': f.name.touched && !f.name.errors }" />
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors.required">O campo nome é obrigatório</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="name_menu">Nome No Menu</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <input class="form-control" [value]="this.simpleFormPermission.value.name" required autofocus
+                  id="name_menu" type="text" formControlName="name_menu" placeholder="Registar Permissão"
+                  autocomplete="given-name_menu"
+                  [ngClass]="{ 'is-invalid': submitted && f.name_menu.errors, 'is-valid': f.name_menu.touched && !f.name_menu.errors }" />
+                <div *ngIf="submitted && f['name_menu'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name_menu'].errors.required">O campo nome no menu é obrigatório</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="slug">Slug</label>&nbsp;
+                <label style="color: #f44336" class="mr-2">*</label>
+                <input class="form-control" required autofocus [value]="textoSlug" id="slug" type="text"
+                  formControlName="slug" placeholder="slug" autocomplete="given-name"
+                  [ngClass]="{ 'is-invalid': submitted && f.slug.errors, 'is-valid': f.slug.touched && !f.slug.errors }" />
+                <div *ngIf="submitted && f['slug'].errors" class="invalid-feedback">
+                  <div *ngIf="f['slug'].errors.required">O campo Slug iso é obrigatório</div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group has-warning ">
+                <label class="col-form-label" for="route"> Rota</label>
+                <input class="form-control" autofocus id="route" type="text" formControlName="route"
+                  placeholder="/listar-empresa" autocomplete="given-route" />
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="type_operation">Tipo Operação</label>
+                <select formControlName="type_operation" class="form-control">
+                  <option *ngFor="let op of tiposOperacoes" [value]="op.valor">{{op.texto}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="access_mode">Modo Acesso</label>
+                <select formControlName="access_mode" class="form-control">
+                  <option *ngFor="let op of opcoesModo" [value]="op.valor">{{op.texto}}</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="icone">Cor Permissão</label>
+                <input style="width: 100%; height: 47px;"
+                  [style.background]="this.simpleFormPermission.value.color_text_name" class="form-control" type="text"
+                  autofocus id="color_text_name" placeholder="#FFFFFF" formControlName="color_text_name"
+                  autocomplete="given-color_text_name" />
+                <!-- [(colorPicker)]="cor_icone" -->
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="icone">Fundo Permissão</label>
+                <input style="width: 100%; height: 47px;"
+                  [style.background]="this.simpleFormPermission.value.color_background_name" class="form-control"
+                  type="text" autofocus id="color_background_name" placeholder="#FFFFFF"
+                  formControlName="color_background_name" autocomplete="given-color_background_name" />
+                <!-- [(colorPicker)]="cor_icone" -->
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="icon"> Ícone</label>
+                <input class="form-control" autofocus id="icon" type="text" formControlName="icon"
+                  placeholder="fa fa-plus" autocomplete="given-icon" />
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="color_icon">Cor Ícone</label>
+                <input style="width: 100%; height: 47px;"
+                  [style.background]="this.simpleFormPermission.value.color_icon" class="form-control" type="text"
+                  autofocus id="color_icon" placeholder="#FFFFFF" formControlName="color_icon"
+                  autocomplete="given-color_icon" />
+                <!-- [(colorPicker)]="cor_icone" -->
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="icone">Cor Fundo Ícone</label>
+                <input style="width: 100%; height: 47px;"
+                  [style.background]="this.simpleFormPermission.value.color_background_icon" class="form-control"
+                  type="text" autofocus id="color_background_icon" placeholder="#FFFFFF"
+                  formControlName="color_background_icon" autocomplete="given-color_background_icon" />
+                <!-- [(colorPicker)]="cor_icone" -->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="form-group has-warning text-center">
+                <label class="col-form-label" for="cor">É Parte Doutra?</label>
+                <input class="form-control" [value]="(e_permissao_dentro_outra)?1:0"
+                  [checked]="(e_permissao_dentro_outra)?true:false" autofocus (change)="setSubPermissao($event)"
+                  type="checkbox" placeholder="1" />
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="entidade_relacionada">Entidade Relacionada</label>
+                <select class="form-control {{(!e_permissao_dentro_outra)?'show':'d-none'}}"></select>
+                <ng-select [(ngModel)]="entidade_relacionada" (change)="listarPermisssoes()" [items]="entidades"
+                  autofocus style="padding: 0;" formControlName="permission_id" notFoundText="Carregando..."
+                  notFoundText="Nenhum resultado encontrado" bindLabel="nome" bindValue="nome" position="bottom"
+                  class="form-control {{(e_permissao_dentro_outra)?'show':'d-none'}}" [multiple]="false">
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="permission_id">Permissões Relacionadas</label>
+                <select class="form-control {{(!e_permissao_dentro_outra)?'show':'d-none'}}"></select>
+                <ng-select [items]="permissions" autofocus style="padding: 0;" formControlName="permission_id"
+                  notFoundText="Carregando..." notFoundText="Nenhum resultado encontrado" bindLabel="name"
+                  bindValue="id" position="bottom" class="form-control {{(e_permissao_dentro_outra)?'show':'d-none'}}"
+                  [multiple]="false">
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group has-warning">
+                <label class="col-form-label" for="ordem">Ordem</label>
+                <input class="form-control" autofocus id="ordem" type="text" formControlName="order" placeholder="1"
+                  autocomplete="given-ordem" />
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group has-warning text-center">
+                <label class="col-form-label" for="is_crud"> É CRUD?</label>
+                <input class="form-control" (change)="setCrud($event)" autofocus id="is_crud" type="checkbox"
+                  formControlName="is_crud" placeholder="é crud" autocomplete="given-is_crud" />
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="col-md-12">
+            <div class="form-group has-warning">
+              <label class="col-form-label" for="description">Descrição</label>&nbsp;
+              <label style="color: #f44336" class="mr-2">*</label>
+              <input class="form-control" autofocus id="description" type="text" formControlName="description"
+                placeholder="descrição" autocomplete="given-name" [value]="this.simpleFormPermission.value.name"
+                [ngClass]="{ 'is-invalid': submitted && f.description.errors, 'is-valid': f.description.touched && !f.description.errors }" />
+              <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                <div *ngIf="f['description'].errors.required">O campo descrição iso é obrigatório</div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button class="btn btn-danger btn-sm" type="reset" [disabled]="simpleFormPermission.pristine && !submitted"
+            (click)="onReset()">Limpar</button>
+          <button class="btn btn-success btn-sm mr-1" type="submit"
+            [disabled]="simpleFormPermission.valid">Validar</button>
+          <button class="btn btn-primary mr-1 btn-sm" type="submit"
+            [disabled]="simpleFormPermission.pristine || simpleFormPermission.invalid" data-style="expand-left"><i
+              class="fa fa-save"></i>
+            Registar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

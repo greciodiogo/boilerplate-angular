@@ -1,0 +1,106 @@
+<!-- outro -->
+<!-- <ngx-loading [show]="this.permissionService.loading"></ngx-loading> -->
+<div
+  bsModal
+  class="{{ is_modal ? 'modal fade' : '' }} animate__animated animate__bounceIn"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-child-name"
+  data-backdrop="static"
+  id="modalPlanoListar"
+>
+  <div class="modal-dialog modal-lg" style="max-width: 1522px">
+    <div
+      class="modal-content {{ !is_modal ? 'modal-content-notboxshadow' : '' }}"
+      [ngStyle]="
+        is_modal
+          ? ''
+          : { background: is_modal ? '#fff' : 'transparent', border: '0' }
+      "
+    >
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="far fa-vcard"></i> {{ title }}</h4>
+        <button
+          #closeModal
+          class="close"
+          type="reset"
+          (click)="onReset()"
+          data-dismiss="modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive">
+          <!-- <ngx-loading [show]="logsService.loading"></ngx-loading> -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="invoice-header">
+                <div class="invoice-from">
+                  <address class="m-t-5 m-b-5">
+                    <h1>Logs Nº: {{ logs.id }}</h1>
+                  </address>
+                </div>
+              </div>
+              <br />
+
+              <table
+                class="table table-hover table-bordered table-stripedd m-0"
+              >
+                <thead>
+                  <tr>
+                    <th class="text-center">
+                      Campos
+                      <small></small>
+                    </th>
+                    <th class="text-center">
+                      Histórico
+                      <small></small>
+                    </th>
+
+                    <th class="text-center">
+                      Actualização
+                      <small></small>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let log of logs_test; index as i">
+                    <th class="text-nowrap" scope="row">
+                      {{ log?._old?.key }}
+                    </th>
+                    <td>{{ log?._old?.value }}</td>
+
+                    <td>
+                      <p *ngIf="log.checked == false">
+                        {{ log?._new?.value }}
+                      </p>
+                      <button
+                        *ngIf="log.checked == true"
+                        type="button"
+                        class="btn btn-block btn-success btn-lg btn-flat"
+                      >
+                        {{ log?._new?.value }}
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="logs_test.length === 0">
+                    <td
+                      colspan="18"
+                      style="font-size: 25px; padding: 28px; font-weight: 500"
+                    >
+                      {{ notFound }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

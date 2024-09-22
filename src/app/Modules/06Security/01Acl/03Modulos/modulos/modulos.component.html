@@ -1,0 +1,198 @@
+<div class="row">
+
+    <div class="col-md-12 col-12">
+      <div class="modall modal-info fadee" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 100%;margin-top:0">
+          <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title"> Filtro de Dados</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="row">
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-1 col-xs-2 col-sm-2">
+                  <mat-label>Entrada</mat-label>
+                  <mat-select name="perPage"
+                    [(ngModel)]="this.pagination.perPage">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-1 col-xs-2 col-sm-2">
+                  <mat-label>Módulo</mat-label>
+                  <mat-select name="type_filter"
+                    [(ngModel)]="this.filter.typeFilter">
+                    <mat-option value="" selected>Filtro</mat-option>
+                    <mat-option value="created_at">Data</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <mat-form-field appearance="outline" class="example-full-width
+                  col-md-3 col-xs-2 col-sm-2">
+                  <mat-label>Pesquisar</mat-label>
+                  <input matInput [(ngModel)]="this.filter.search"
+                    placeholder='Pesquisar...'
+                    (keyup)="getPageFilterData($event)">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+  
+                <div class="col-md-1 col-xs-2 col-sm-2">
+                  <mat-radio-group aria-label="Select an option"
+                    [(ngModel)]="this.filter.typeOrderBy">
+                    <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                    <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+  
+                <div class="col-md-1 col-xs-2 col-sm-2">
+                  <div class="form-group">
+                    <div class="example-button-row">
+                      <button type="button" (click)="listarModulos()"
+                        mat-raised-button class="btn btn-info btn-flat filter-color-button"
+                        type="button" style="margin-top: 3px;padding: 4px 16px;"><i
+                          class="fa fa-search"></i>
+                        Filtrar</button>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-lg-12 col-12">
+      <div class="modall modal-info fadee" data-backdrop="static">
+        <div class="modal-dialog" style="max-width: 100%;">
+          <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">TABELA DOS MÓDULOS</h4>
+  
+              <div class="card-tools">
+                <button class="btn btn-outline-primary btn-sm btn-flat"
+                  type="button" (click)="listarModulos()"><i
+                    class="icon-refresh"></i> Recarregar Dados</button>
+                <button class="btn btn-success btn-sm btn-flat" type="button" (click)="setModulo(null)"
+                  data-toggle="modal" data-target="#modalRegistarModulo" ><i
+                    class="icon-plus"></i> Registar Módulo</button>
+              </div>
+  
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <!-- /.card-body -->
+              <div class="table-responsivee">
+  
+  
+                <ngx-loading [show]="moduloService.loading"></ngx-loading>
+                <table class="table table-hover table-bordered table-stripedd
+                  text-center m-0 exportAsXLSXCliente">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th class="d-none">ID</th>
+                      <th>Nome</th>
+                      <th>Slug</th>
+                      <th>Descrição</th>
+                      <th>Cor Texto Nome</th>
+                      <th>Cor Fundo Nome</th>
+                      <th>Cor Ícone</th>
+                      <th>Cor Fundo Ícone</th>
+                      <th>Tipo</th>
+                      <th style="width: 9%;">Acção</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      style="cursor: pointer;"
+                      *ngFor="let modulo of modulos | paginate: {
+                      itemsPerPage: this.pagination.perPage, currentPage:
+                      this.pagination.page, id: 'listFact',totalItems:
+                      this.pagination.total }; index as i"
+                      (click)="pegarModulo(modulo.id)">
+                      <td>{{(i+1)}}</td>
+                      <td class="d-none">{{ modulo.id }}</td>
+                      <td class="text-justify">{{ modulo.nome }}</td>
+                      <td class="text-justify"><span>{{ modulo.slug }}</span></td>
+                      <td class="text-justify">{{ modulo.descricao }}</td>
+                      <td class="text-justify" style="background-color:'{{ modulo.cor_texto_nome }}';">{{ modulo.cor_texto_nome }}</td>
+                      <td class="text-justify" style="background-color:'{{ modulo.cor_fundo_nome }}';">{{ modulo.cor_fundo_nome }}</td>
+                      <td class="text-justify" style="background-color:'{{ modulo.cor_icone }}';">{{ modulo.cor_icone }}</td>
+                      <td class="text-justify" style="background-color:'{{ modulo.cor_fundo_icone }}';">{{ modulo.cor_fundo_icone }}</td>
+                      <td class="text-justify">{{ modulo.is_principal?'Módulo':'SubMódulo' }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-info btn-flat
+                            dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <span class="caret">Opções</span>
+                          </button>
+                          <div class="dropdown-menu" modulo="menu"
+                            x-placement="bottom-start" style="position: absolute;
+                            will-change: transform; top: 0px; left: -58px;
+                            transform: translate3d(67px, 38px, 0px);">
+                            <a href="javascript:void(0)" class="dropdown-item
+                              btn-sm" title="Editar"
+                              data-widget="chat-pane-toggle" data-toggle="modal"
+                              data-target="#modalRegistarModulo"
+                              (click)="setModulo(modulo)"><i class="fa
+                                fa-credit-card"></i> Editar</a>
+                            <a href="javascript:void(0)" class="dropdown-item
+                              btn-sm" title="Eliminar" data-toggle="modal"
+                              data-widget="chat-pane-toggle"
+                              data-target="#modalEliminaModulo"
+                              (click)="setModulo(modulo)"><i class="fa
+                                fa-trash"></i> Eliminar</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row" style="width: 100%;">
+                <div class="col-sm-12 col-md-5">
+                  <div class="dataTables_info">Mostrando de
+                    {{this.pagination.page}} a
+                    {{this.pagination.perPage}} de
+                    {{configService.numberFormat(this.pagination.total)}}
+                    registo{{ ( this.pagination.total > 1? 's':'')}}
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="pull-right">
+                    <pagination-controls 
+                      (pageChange)="getPageFilterData($event)"
+                      previousLabel="Anterior" maxSize="6"
+                      nextLabel="Próximo" directionLinks="true" responsive="true"
+                      id='listFact'></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <app-modulo-form-create-or-edit [is_modal]="true"
+    (loadList)="listarModulos()" [modulo]="modulo"></app-modulo-form-create-or-edit>
+  <app-delete-data (loadList)="getPageFilterData($event)"
+    (fnDelete)="delete(this.modulo.id)" [data]="this.modulo?.nome"
+    modalName="modalEliminaModulo"></app-delete-data>
+  
+  

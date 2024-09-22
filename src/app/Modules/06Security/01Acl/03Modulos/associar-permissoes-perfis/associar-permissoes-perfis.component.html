@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="invoice p-3 mb-3">
+            <!-- style="height: 900px; overflow: auto;" -->
+            <div class="row">
+                <div class="col-md-7 col-xs-12 col-sm-12">
+                    <h4>Módulos/SubMódulos</h4>
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="row">
+
+                        <div class="col-md-1 col-xs-2 col-sm-2">
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <label  
+                                        style="margin-top: 3px;padding: 4px 16px;">
+                                        Perfil:</label>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+
+                        <div appearance="outline" class="example-full-width col-md-3 col-xs-2 col-sm-2 form-group">
+                            <!-- <mat-form-field appearance="outline" class="example-full-width col-md-3 col-xs-2 col-sm-2"> -->
+                            <!-- <mat-label>Perfil2</mat-label> -->
+                            <select id="role_id" (change)="carregarDadosDoPerfil()" class="form-control"
+                                aria-placeholder="Seleccione um perfil" style="margin-top: 5px;" name="Perfil"
+                                [(ngModel)]="role_id">
+                                <option selected>Seleccione um perfil</option>
+                                <option *ngFor="let role of roles" [value]="role.id"> {{role.name}}</option>
+                            </select>
+                            <!-- </mat-form-field> -->
+                        </div>
+
+                        <div class="col-md-2 col-xs-2 col-sm-2">
+                            <div class="form-group">
+                                <div class="example-button-row">
+                                    <button *ngIf="this.role_id>0" type="button" [disabled]="desactivarBotaoSalvar"
+                                        (click)="associarModulosPermissoesAoPerfil()" mat-raised-button
+                                        class="btn btn-info btn-flatt filter-color-button" type="button"
+                                        style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-save"></i>
+                                        Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <div class="col-md-12 col-xs-12" style="height: 750px; overflow-y: auto;">
+
+                            <app-loading [show]="this.moduloService.loading"></app-loading>
+
+                            <ul class="tree">
+                                <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: list }">
+                                </ng-container>
+                            </ul>
+                            <ng-template #recursiveListTmpl let-list="list">
+                                <li *ngFor="let item of list; index as m;" id="{{item.modulo_submodulo_id}}">
+                                    <input type="checkbox" class="modulosSubmodulos form-control"
+                                        id="{{'input'+item.modulo_submodulo_id}}" />
+
+                                    <label class="tree_label " for="{{'input'+item.modulo_submodulo_id}}">
+                                        <!-- [checked]="verificarModuloSubmoduloNoPerfil(item )" /> -->
+                                        <!-- (change)="manipularModuloSubModulo($event, item)"
+                                        (change)="manipularOperacao(item.modulo_submodulo_id, $event)" -->
+                                        <input [disabled]="(this.role_id>0)?false:true" type="checkbox"
+                                            value="{{item.permission_id+'#null'}}"
+                                            class="operacoes modulos {{item.modulo_submodulo_id}} {{(!item.is_principal)?'submodulo_id':'modulo_principal_id'}}"
+                                            (change)="manipularModuloSubModulo($event, item)"
+                                            id="{{item.modulo_submodulo_id+''+item.id}}"
+                                            [checked]="verificarPermissaoNoPerfil(item.permission_id, 1)" />
+                                        <input type="text" class="modulo_submodulo_id d-none "
+                                            value="{{item.modulo_submodulo_id}}" id="{{item.id}}" />
+
+                                        <input type="text"
+                                            class="modulos d-none permission{{item.permission_id}} {{(!item.is_principal)?'submodulo_id':'modulo_principal_id'}}"
+                                            value="{{item.id}}" />
+
+                                        <span *ngIf="this.role_id>0 else naoTemRole">&nbsp;{{item.nome}}</span>
+                                        <ng-template #naoTemRole>
+                                            <span
+                                                style="text-decoration:line-through; color:red !important;">&nbsp;{{item.nome}}
+                                            </span>
+                                        </ng-template>
+                                    </label>
+                                    <!-- &nbsp;<i *ngIf="verificarModuloSubmoduloNoPerfil(item)" class="fa fa-check"></i> -->
+                                    &nbsp;<i *ngIf="verificarPermissaoNoPerfil(item.permission_id, 1)"
+                                        class="fa fa-check"></i>
+
+                                    <ng-container *ngIf="item.subModulos !=undefined ">
+                                        <ul *ngIf="item.subModulos.length > 0">
+                                            <ng-container
+                                                *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.subModulos }">
+                                            </ng-container>
+                                        </ul>
+                                    </ng-container>
+
+                                    <ol>
+                                        <li *ngFor="let op of item.operacoes">
+                                            <input type="checkbox" [disabled]="(this.role_id>0)?false:true"
+                                                (change)="manipularOperacao(item.modulo_submodulo_id, $event)"
+                                                value="{{op.id+'#'+op.modulo_permissao_id}}"
+                                                id="{{'inputOperacao'+op.modulo_permissao_id}}"
+                                                class="operacoes {{item.modulo_submodulo_id}}"
+                                                [checked]="verificarPermissaoNoPerfil(op.id,op.modulo_permissao_id)" />
+                                            <label>
+                                                <span *ngIf="this.role_id>0 else naoTemRole">&nbsp;{{op.name}}</span>
+                                                <ng-template #naoTemRole>
+                                                    <span
+                                                        style="text-decoration:line-through; color:red !important;">&nbsp;{{op.name}}</span>
+                                                </ng-template>
+                                            </label>
+                                            &nbsp;<i *ngIf="verificarPermissaoNoPerfil(op.id,op.modulo_permissao_id)"
+                                                class="fa fa-check"></i>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

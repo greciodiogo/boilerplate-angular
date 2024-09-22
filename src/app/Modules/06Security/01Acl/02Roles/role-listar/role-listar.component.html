@@ -1,0 +1,179 @@
+<div class="row">
+
+  <div class="col-md-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%;margin-top:0">
+        <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title"> Filtro de Dados</h4>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Entrada</mat-label>
+                <mat-select name="perPage" [(ngModel)]="this.pagination.perPage">
+                  <mat-option [value]="5">5</mat-option>
+                  <mat-option [value]="10">10</mat-option>
+                  <mat-option [value]="25">25</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Filtro</mat-label>
+                <mat-select name="type_filter" [(ngModel)]="this.filter.typeFilter">
+                  <mat-option value="" selected>Filtro</mat-option>
+                  <mat-option value="created_at">Data</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-3 col-xs-2 col-sm-2">
+                <mat-label>Pesquisar</mat-label>
+                <input matInput [(ngModel)]="this.filter.search" placeholder='Pesquisar...'
+                  (keyup)="getPageFilterData($event)">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="this.filter.typeOrderBy">
+                  <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                  <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <div class="form-group">
+                  <div class="example-button-row">
+                    <button type="button" (click)="listarRole()" mat-raised-button class="btn btn-info btn-flat filter-color-button"
+                      type="button" style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+                      Filtrar</button>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%;">
+        <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">TABELA DE ROLES</h4>
+
+            <div class="card-tools">
+              <button class="btn btn-outline-primary btn-sm btn-flat" type="button" (click)="listarRole()"><i
+                  class="icon-refresh"></i>
+                Recarregar Dados</button>
+              <button class="btn btn-success btn-sm btn-flat" type="button" data-toggle="modal"
+                data-target="#modalRegistarRole"><i class="icon-plus"></i> Registar Role</button>
+            </div>
+
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- /.card-body -->
+            <div class="table-responsive">
+
+
+              <app-loading [show]="roleService.loading"></app-loading>
+
+              <table class="table table-hover table-bordered table-striped
+                text-center m-0 exportAsXLSXCliente">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Slug</th>
+                    <th>Direcção</th>
+                    <th *ngIf="this.roleService.canActivateRouterLink('definir-pode-ter-mais-de-uma-sessao-aberta-role')">Ter Mais de Uma Sessão?</th>
+                    <th>Data Actualização</th>
+                    <th style="width: 9%;">Acção</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let role of roles | paginate: { itemsPerPage:
+                    this.pagination.perPage, currentPage: this.pagination.page,
+                    id: 'listRoles',totalItems: this.pagination.total }; index as
+                    i">
+                    <td>{{(i+1)}}</td>
+                    <td class="text-justify">{{ role.name }}</td>
+                    <td class="text-justify">{{ role.slug }}</td>
+                    <td class="text-justify">{{ role?.direccao?.designacao }}</td>
+                    <td *ngIf="this.roleService.canActivateRouterLink('definir-pode-ter-mais-de-uma-sessao-aberta-role')">{{role?.more_session?'Sim':'Não'}}</td>
+                    <td>{{ role.created_at | date: 'dd-MM-yyyy' }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-flat
+                          dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <span class="caret">Opções</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute;
+                          will-change: transform; top: 0px; left: -58px;
+                          transform: translate3d(67px, 38px, 0px);">
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Editar" data-widget="chat-pane-toggle" data-toggle="modal"
+                            *ngIf="this.roleService.canActivateRouterLink('actualizar-roles')"
+                            data-target="#modalRegistarRole" (click)="setRole(role)"><i class="fa
+                              fa-credit-card"></i> Editar</a>
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Adicionar Permissões" data-widget="chat-pane-toggle" data-toggle="modal"
+                            *ngIf="this.roleService.canActivateRouterLink('adicionar-permissoes')"
+                            data-target="#modalAddPermission" (click)="setRole(role)"><i class="fa
+                              fa-credit-card"></i> Adicionar Permissões</a>
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Eliminar" data-toggle="modal" data-widget="chat-pane-toggle"
+                            *ngIf="this.roleService.canActivateRouterLink('apagar-roles')"
+                            data-target="#modalEliminaRole" (click)="setRole(role)"><i class="fa fa-trash"></i>
+                            Eliminar</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row" style="width: 100%;">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info">Mostrando de
+                  {{this.pagination.page}} a
+                  {{this.pagination.perPage}} de
+                  {{configService.numberFormat(this.pagination.total)}}
+                  registo{{ ( this.pagination.total > 1? 's':'')}}
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7">
+                <div class="pull-right">
+                  <pagination-controls (pageChange)="getPageFilterData($event)" previousLabel="Anterior" maxSize="6"
+                    nextLabel="Próximo" directionLinks="true" responsive="true" id='listRoles'></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-role-permission-create-or-edit [is_modal]="true" modalName="modalAddPermission" [role]="role">
+</app-role-permission-create-or-edit>
+<app-role-form-create-or-edit [is_modal]="true" (loadList)="listarRole()" [role]="role"></app-role-form-create-or-edit>
+<!-- <app-delete-data (loadList)="getPageFilterData($event)"
+  (fnDelete)="delete(this.role.id)" [data]="this.role.name"
+  modalName="modalEliminaRole"></app-delete-data> -->

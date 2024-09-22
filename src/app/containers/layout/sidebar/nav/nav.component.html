@@ -1,0 +1,25 @@
+ <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+  <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menus }"></ng-container>
+</ul>
+
+<ng-template #recursiveMenu let-menus>
+  <li *ngFor="let menu of menus" class="nav-item has-treeview " routerLinkActive="['active']">
+    <a *ngIf="!menu.children" [routerLink]="menu.path" [routerLinkActive]="menu.routerLinkActive" class="nav-link">
+      <i [class]="menu?.icon"></i>
+      <p>
+        {{menu.title}}
+        <i *ngIf="menu?.iconRight" class="right fas fa-angle-left"></i>
+      </p>
+     </a>
+     <a *ngIf="menu.children" [href]="menu.path" [routerLinkActive]="menu.routerLinkActive" class="nav-link">
+      <i [class]="menu?.icon"></i>
+      <p>
+        {{menu.title}}
+        <i *ngIf="menu?.iconRight" class="right fas fa-angle-left"></i>
+      </p>
+     </a>
+    <ul class="nav nav-treeview" *ngIf="menu.children">
+      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu.children }"></ng-container>
+    </ul>
+  </li>
+</ng-template>

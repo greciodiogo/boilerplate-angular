@@ -1,0 +1,233 @@
+<div class="row">
+
+  <div class="col-md-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%;margin-top:0">
+        <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title"> Filtro de Dados</h4>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Entrada</mat-label>
+                <mat-select name="perPage" [(ngModel)]="this.pagination.perPage">
+                  <mat-option [value]="5">5</mat-option>
+                  <mat-option [value]="10">10</mat-option>
+                  <mat-option [value]="25">25</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Perfil</mat-label>
+                <mat-select name="perPage" [(ngModel)]="this.filter.role_id">
+                  <mat-option value="">Perfil</mat-option>
+                  <mat-option [value]="role.id" *ngFor="let role of roles">{{ role.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Loja</mat-label>
+                <mat-select name="perPage" [(ngModel)]="this.filter.loja_id">
+                  <mat-option value="">Loja</mat-option>
+                  <mat-option [value]="loja.id" *ngFor="let loja of lojas">{{ loja.nome }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-1 col-xs-2 col-sm-2">
+                <mat-label>Filtro</mat-label>
+                <mat-select name="type_filter" [(ngModel)]="this.filter.typeFilter">
+                  <mat-option value="" selected>Filtro</mat-option>
+                  <mat-option value="name">Nome</mat-option>
+                  <mat-option value="id">ID</mat-option>
+                  <mat-option value="telefone">Telefone</mat-option>
+                  <mat-option value="created_at">Data</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="example-full-width
+                col-md-3 col-xs-2 col-sm-2">
+                <mat-label>Pesquisar</mat-label>
+                <input matInput [(ngModel)]="this.filter.search" placeholder='Pesquisar...'
+                  (keyup)="getPageFilterData($event)">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="this.filter.typeOrderBy">
+                  <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                  <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-md-1 col-xs-2 col-sm-2">
+                <div class="form-group">
+                  <div class="example-button-row">
+                    <button type="button" (click)="listarUser()" mat-raised-button class="btn btn-info filter-color-button" type="button"
+                      style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+                      Filtrar</button>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-12">
+    <div class="modall modal-info fadee" data-backdrop="static">
+      <div class="modal-dialog" style="max-width: 100%;">
+        <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">TABELA DE UTILIZADORES</h4>
+
+            <div class="card-tools">
+              <button class="btn btn-outline-primary btn-lg " type="button" (click)="listarUser()"><i
+                  class="icon-refresh"></i>
+                Recarregar Dados</button>
+              <button class="btn btn-primary btn-lg " type="button"
+                *ngIf="this.userService.canActivateRouterLink('criar-utilizadores')" data-toggle="modal"
+                data-target="#modalRegistarUser"><i class="icon-plus"></i> Registar User</button>
+            </div>
+
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- /.card-body -->
+            <div class="table-responsivee">
+
+
+              <app-loading [show]="userService.loading"></app-loading>
+
+              <table class="table table-hover table-bordered table-striped text-center m-0 exportAsXLSXCliente">
+
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Username</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Perfil</th>
+                    <th>Status</th>
+                    <th>Loja</th>
+                    <th>Direcção</th>
+                    <th>Data Criação</th>
+                    <th>Data Actualização</th>
+                    <th width="50px">Operações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users | paginate: { itemsPerPage:
+                    this.pagination.perPage, currentPage: this.pagination.page,
+                    totalItems: this.pagination.total, id:'listUsers' }; index as i">
+                    <td>{{(i+1)}}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.telefone }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{user?.perfil[0]?.name}}</td>
+                    <td><span class="btn bg-success btn-block " *ngIf="user.is_actived">Activo</span>
+                      <span class="btn bg-danger btn-block " *ngIf="!user.is_actived">Inactivo</span>
+                    </td>
+                    <td>{{user?.loja?.nome||'-------'}}</td>
+                    <td>{{user?.direccao?.designacao||'-------'}}</td>
+                    <td>{{ user.created_at | date: 'dd-MM-yyyy' }}</td>
+                    <td>{{ user.updated_at | date: 'dd-MM-yyyy | H:mm' }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info
+                          btn-sm" data-toggle="dropdown">Opções</button>
+                        <button type="button" class="btn btn-info
+                          dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute;
+                          will-change: transform; top: 0px; left: -58px;
+                          transform: translate3d(67px, 38px, 0px);">
+                          <a class="dropdown-item" *ngIf="this.userService.canActivateRouterLink('ver-perfil')"
+                            href="#"><i class="icon-user"></i> Ver Perfil</a>
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Editar" data-widget="chat-pane-toggle" data-toggle="modal"
+                            data-target="#modalRegistarUser"
+                            *ngIf="this.userService.canActivateRouterLink('actualizar-utilizadores')"
+                            (click)="setUser(user)"><i class="fa fa-edit"></i>
+                            Editar</a>
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Adicionar Roles" data-widget="chat-pane-toggle" data-toggle="modal"
+                            data-target="#modalAddRoles"
+                            *ngIf="this.userService.canActivateRouterLink('adicionar-permissao-individual')"
+                            (click)="setUser(user)"><i class="fa fa-edit"></i>
+                            Adicionar Permissão Individual</a>
+                          <a class="dropdown-item" href="javascript:void(0)"
+                            *ngIf="user.is_actived && this.userService.canActivateRouterLink('bloquear-utilizador')"
+                            (click)="BloquearUser(user.id,!user.is_actived);"><i class="fa fa-lock"></i> Bloquear</a>
+                          <a class="dropdown-item" href="javascript:void(0)"
+                            *ngIf="!user.is_actived && this.userService.canActivateRouterLink('desbloquear-utilizador')"
+                            (click)="BloquearUser(user.id,user.is_actived);"><i class="fa fa-unlock"></i>
+                            Desbloquear</a>
+
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="setUser(user);"
+                            data-toggle="modal"
+                            *ngIf="this.userService.canActivateRouterLink('redifinir-senha-controle-de-acesso')"
+                            data-target="#modalRegistarRedefinirPassword"><i class="fa fa-asterisk"></i> Redefinir
+                            Password</a>
+
+                          <a href="javascript:void(0)" class="dropdown-item
+                            btn-sm" title="Eliminar" data-toggle="modal" data-widget="chat-pane-toggle"
+                            *ngIf="this.userService.canActivateRouterLink('apagar-utilizadores')"
+                            data-target="#modalEliminaUser" (click)="setUser(user)"><i class="fa fa-trash"></i>
+                            Eliminar</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row" style="width: 100%;">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info">Mostrando de
+                  {{this.pagination.page}} a
+                  {{this.pagination.perPage}} de
+                  {{this.pagination.total?configService.numberFormat(this.pagination.total):0}}
+                  registo{{ ( this.pagination.total > 1? 's':'')}}
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7">
+                <div class="pull-right">
+                  <pagination-controls (pageChange)="getPageFilterData($event)" previousLabel="Anterior" maxSize="6"
+                    nextLabel="Próximo" directionLinks="true" responsive="true" id='listUsers'></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-user-roles-create-or-edit [is_modal]="true" modalName="modalAddRoles" [user]="this.user">
+</app-user-roles-create-or-edit>
+<app-user-form-create-or-edit [is_modal]="true" (loadList)="listarUser()" [roles]="roles" [lojas]="lojas" [user]="user">
+</app-user-form-create-or-edit>
+<!-- <app-delete-data (loadList)="getPageFilterData($event)"
+  (fnDelete)="delete(this.user.id)" [data]="this.user.name"
+  modalName="modalEliminaUser"></app-delete-data> -->
+<app-redefinir-password [is_modal]="true" [user]="user"></app-redefinir-password>

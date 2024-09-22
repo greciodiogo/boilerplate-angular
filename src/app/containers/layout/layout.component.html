@@ -1,0 +1,44 @@
+<link id="temacss" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"/>
+<!-- <app-block-screen></app-block-screen> -->
+
+<ngx-spinner bdOpacity=0.4 bdColor="#17a2b8" size="large" color="#fff" type="ball-scale-multiple" fullScreen="true">
+  <p style="color:white; font-size: 22px"> Carregando... </p>
+</ngx-spinner>
+
+ <!-- Site wrapper -->
+  <div class="wrapper" >
+    <!-- Navbar -->
+
+    <app-header [themeApp]="themeApp" class="{{ layout.layoutNavigationTop?'content-wrapper-left': ''}}" *ngIf="layout.customLayout" [layoutNavigationTop]="layout.layoutNavigationTop" [authenticated]="auth"></app-header>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-sidebar *ngIf="layout.customLayout  && !layout.layoutNavigationTop" [authenticated]="auth" [permission]="permService" [themeApp]="themeApp"></app-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper {{ layout.layoutNavigationTop?'content-wrapper-left': ''}}">
+      <!-- Content Header (Page header) -->
+      <breadcrumbs [pageTitle]="header" *ngIf="layout.customLayout"></breadcrumbs>
+
+      <!-- Main content -->
+      <section class="content" >
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <app-footer class="{{ !layout.customLayout  || layout.customLayout?'content-wrapper-left': ''}}" *ngIf="layout.customLayout  && !layout.layoutNavigationTop"></app-footer>
+    <!-- Control Sidebar --
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here --
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->

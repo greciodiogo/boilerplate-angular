@@ -33,7 +33,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
   }
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite listar todos dados'
    * @return Observable
    */
@@ -50,7 +50,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
   }
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite visualizar'
    * @param id
    */
@@ -65,7 +65,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
   }
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite registar'
    * @param form
    * @returns
@@ -81,7 +81,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
     );
   }
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite actualizar'
    * @param form
    * @param params
@@ -98,7 +98,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
   }
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite eliminar'
    * @param id
    */
@@ -112,7 +112,7 @@ export abstract class BaseStorageService implements StateModuleApiInterface {
   }
 
   /**
-   * @author 'caniggia.moreira@ideiasdinamicas.com'
+   * @author 'fonebahia8@gmail.com'
    * @description 'Permite actualizar'
    * @param form
    * @param params

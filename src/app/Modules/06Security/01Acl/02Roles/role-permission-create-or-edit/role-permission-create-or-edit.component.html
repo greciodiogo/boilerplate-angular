@@ -1,0 +1,106 @@
+<div
+  class="{{ is_modal ? 'modal fade' : '' }}"
+  id="modalAddPermission"
+  data-backdrop="static"
+>
+
+  <div class="modal-dialog modal-lg" style="max-width: 1700px !important; width: 80%;">
+
+    <div
+      class="modal-content {{ !is_modal ? 'modal-content-notboxshadow' : '' }}"
+    >
+    <div class="modal-header">
+      <h4 class="modal-title">Adicionar Permissões</h4>
+      <button
+        class="close"
+        type="reset"
+        (click)="onReset()"
+        data-dismiss="modal"
+      >
+        &times;
+      </button>
+    </div>
+    <div class="col-md-12 col-12">
+      <div class="modall modal-info fadee" data-backdrop="static">
+          <div class="modal-dialog" style="max-width: 100%;margin-top:0">
+              <div class="modal-content" style="box-shadow: 0 0 0rem rgba(0,0,0,.5);">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                      <h4 class="modal-title"> Filtro de Dados</h4>
+                  </div>
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                      <div class="row">
+                          <mat-form-field appearance="outline" class="example-full-width col-md-1 col-xs-2 col-sm-2">
+                              <mat-label>Entrada</mat-label>
+
+                              <mat-select name="perPage" [(ngModel)]="this.pagination.perPage">
+                                  <mat-option [value]="5">5</mat-option>
+                                  <mat-option [value]="10">10</mat-option>
+                                  <mat-option [value]="25">25</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" class="example-full-width col-md-2 col-xs-2 col-sm-2">
+                              <mat-label>Módulos</mat-label>
+                              <mat-select placeholder="Seleccione" (change)="listarSubModulos($event)" [(ngModel)]="modulo_id">
+                                  <mat-option *ngFor="let modulo of modulos" [value]="modulo.id">
+                                      {{modulo.nome}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" class="example-full-width col-md-2 col-xs-2 col-sm-2 d-none">
+                            <mat-label>SubMódulos</mat-label>
+                            <mat-select placeholder="Seleccione" [(ngModel)]="modulo_id">
+                                <mat-option *ngFor="let subModulo of subModulos" [value]="subModulo.id">
+                                    {{subModulo.nome}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                          <mat-form-field appearance="outline" class="example-full-width col-md-3 col-xs-2 col-sm-2">
+                              <mat-label>Pesquisar</mat-label>
+                              <input matInput [(ngModel)]="this.filter.search" placeholder='Pesquisar...'
+                                  (keyup)="getPageFilterData($event)">
+                              <mat-icon matSuffix>search</mat-icon>
+                          </mat-form-field>
+
+                          <div class="col-md-1 col-xs-2 col-sm-2">
+                              <mat-radio-group aria-label="Select an option" [(ngModel)]="this.filter.typeOrderBy">
+                                  <mat-radio-button value="ASC"> Crescente</mat-radio-button><br>
+                                  <mat-radio-button value="DESC"> Decrescente</mat-radio-button>
+                              </mat-radio-group>
+                          </div>
+
+                          <div class="col-md-1 col-xs-2 col-sm-2">
+                              <div class="form-group">
+                                  <div class="example-button-row">
+                                      <button type="button" (click)="listarModulos()" mat-raised-button
+                                          class="btn btn-info btn-flat filter-color-button" type="button"
+                                          style="margin-top: 3px;padding: 4px 16px;"><i class="fa fa-search"></i>
+                                          Filtrar</button>
+                                  </div>
+                                  <!-- /.input group -->
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+      <!-- Modal Header -->
+      <form (submit)="onSubmit()" style="font-size: 16px !important;">
+        <!-- Modal body -->
+        <div class="modal-body" style="padding: 2rem">
+          <app-table-checked [role]="role" [modulo_id]="modulo_id"></app-table-checked>
+        </div>
+
+        <!-- Modal footer -->
+      </form>
+    </div>
+  </div>
+</div>

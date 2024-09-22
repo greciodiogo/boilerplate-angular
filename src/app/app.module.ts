@@ -12,12 +12,6 @@ export function tokenGetter() {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// Import containers
-
-import { P404Component } from '@resources/errors/404.component';
-import { P403Component } from '@resources/errors/403.component';
-import { P500Component } from '@resources/errors/500.component';
-
 import { LayoutModule } from '@containers/layout/layout.module';
 import { LayoutComponent } from '@containers/layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,17 +25,15 @@ import { Ng2IziToastModule } from 'ng2-izitoast';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotificationsModule } from './shared/components/notifications/notificacions.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './Modules/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     AppComponent,
-    P404Component,
-    P403Component,
-    P500Component,
+    DashboardComponent,
   ],
   imports: [
-
     BrowserModule,
     CommonModule,
     HttpClientModule,
